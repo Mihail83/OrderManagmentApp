@@ -8,6 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OrderManagmentApp.DataLayer;
+using OrderManagmentApp.BusinessLogic;
+using OrderManagmentApp.DataLayer.Interfaces;
+using OrderManagmentApp.DataLayer.Repositories;
 
 namespace OrderManagmentApp.WEB
 {
@@ -24,6 +28,9 @@ namespace OrderManagmentApp.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDataLayerService(Configuration);
+            services.AddBusinessLogicService(Configuration);
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
