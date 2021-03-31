@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Interfaces
 {
-    public interface ITreatyRepository : IGenericCrudRepository<AgreementEntity>, IGenericAdvancedRepository<AgreementEntity>
+    public interface ITreatyRepository : IGenericCrudRepository<AgreementEntity>
     {
 
     }
