@@ -11,7 +11,8 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<ShipmentDestinationEntity> builder)
         {
-            
+            builder.HasKey(i => i.Id);
+            builder.HasIndex(sp => sp.Destination).IsUnique();
         }
     }
 }

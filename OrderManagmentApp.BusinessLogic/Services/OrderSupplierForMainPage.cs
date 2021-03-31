@@ -11,11 +11,11 @@ using OrderManagmentApp.DataLayer.EntityModels;
 
 namespace OrderManagmentApp.BusinessLogic.Services
 {
-    public class OrderSupplier
+    public class OrderSupplierForMainPage
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper<OrderEntity, Order> _mapper;
-        public OrderSupplier(IOrderRepository orderRepository, IMapper<OrderEntity, Order> mapper )
+        public OrderSupplierForMainPage(IOrderRepository orderRepository, IMapper<OrderEntity, Order> mapper )
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

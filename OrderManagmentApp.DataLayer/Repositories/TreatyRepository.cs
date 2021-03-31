@@ -13,47 +13,45 @@ namespace OrderManagmentApp.DataLayer.Repositories
     public class TreatyRepository : ITreatyRepository
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<TreatyEntity> _dbSet;
+        private readonly DbSet<AgreementEntity> _dbSet;
 
         public TreatyRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<TreatyEntity>();
+            _dbSet = _dbContext.Set<AgreementEntity>();
 
         }
-        public void Add(TreatyEntity entity)
+        public void Add(AgreementEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new TreatyEntity { Id = id });
+            _dbSet.Remove(new AgreementEntity { Id = id });
+            _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TreatyEntity> FindBy(Expression<Func<TreatyEntity, bool>> predicate)
+        public IEnumerable<AgreementEntity> FindBy(Expression<Func<AgreementEntity, bool>> predicate)
         {
             return _dbSet.Where(predicate).AsNoTracking();
         }
 
-        public IEnumerable<TreatyEntity> GetAll()
+        public IEnumerable<AgreementEntity> GetAll()
         {
             return _dbSet.AsNoTracking();
         }
 
-        public TreatyEntity GetById(int id)
+        public AgreementEntity GetById(int id)
         {
             return _dbSet.FirstOrDefault(treaty => treaty.Id == id);
-        }
+        }     
 
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
-
-        public void Update(TreatyEntity entity)
+        public void Update(AgreementEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

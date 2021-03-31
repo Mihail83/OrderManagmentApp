@@ -10,41 +10,41 @@ using OrderManagmentApp.DataLayer.EF;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
-    class OrderInALutehRepository : IOrderInALutehRepository
+    class OrderInFactoryRepository : IOrderInFactoryRepository
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<OrderInALutehEntity> _dbSet;
+        private readonly DbSet<OrderInFactoryEntity> _dbSet;
 
-        public OrderInALutehRepository(OrderManagmentAppContext context)
+        public OrderInFactoryRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<OrderInALutehEntity>();
+            _dbSet = _dbContext.Set<OrderInFactoryEntity>();
 
         }
 
-        public OrderInALutehEntity GetById(int id)
+        public OrderInFactoryEntity GetById(int id)
         {
             return _dbSet.FirstOrDefault(ord => ord.ID == id);
 
         }
-        public void Add(OrderInALutehEntity entity)
+        public void Add(OrderInFactoryEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
-        public void AddRange(IEnumerable<OrderInALutehEntity> entities)
+        public void AddRange(IEnumerable<OrderInFactoryEntity> entities)
         {
             _dbSet.AddRange(entities);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new OrderInALutehEntity { ID = id });
-        }
-        public void SaveChanges()
-        {
+            _dbSet.Remove(new OrderInFactoryEntity { ID = id });
             _dbContext.SaveChanges();
         }
+       
 
         
     }

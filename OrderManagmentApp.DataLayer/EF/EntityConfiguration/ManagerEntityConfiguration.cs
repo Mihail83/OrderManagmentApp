@@ -11,8 +11,9 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<ManagerEntity> builder)
         {
-            builder.HasKey(manag=>manag.Id);
-            builder.Property(manag => manag.ManagerName).HasMaxLength(50);
+            builder.HasKey(i => i.Id);
+            builder.HasIndex(sp => sp.Name).IsUnique();
+            builder.Property(manag => manag.Name).HasMaxLength(50);
         }
     }
 }

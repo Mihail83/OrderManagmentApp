@@ -21,12 +21,14 @@ namespace OrderManagmentApp.DataLayer.Repositories
         }
         public void Add(ShipmentDestinationEntity entity)
         {
-            _dbSet.Add(entity);            
+            _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _dbSet.Remove(new ShipmentDestinationEntity { Id = id });
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<ShipmentDestinationEntity> GetAll()
@@ -42,10 +44,7 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public void Update(ShipmentDestinationEntity entity)
         {
             _dbSet.Update(entity);
-        }
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();            
-        }
+            _dbContext.SaveChanges();
+        }      
     }
 }

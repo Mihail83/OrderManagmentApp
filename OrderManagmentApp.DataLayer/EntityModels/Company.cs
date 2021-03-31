@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OrderManagmentApp.DataLayer.EntityModels
 {    
-    public class LegalPerson
+    public class Company
     {
-        public string PayersAccountNumber { get; set; }
+        public string Name { get; set; }
+        public string TaxPayerId { get; set; }
         public BankInfo Bank { get; set; }
         public string Address { get; set; }
         public ulong OKPO { get; set; }

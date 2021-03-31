@@ -12,6 +12,12 @@ using OrderManagmentApp.DataLayer;
 using OrderManagmentApp.BusinessLogic;
 using OrderManagmentApp.DataLayer.Interfaces;
 using OrderManagmentApp.DataLayer.Repositories;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using OrderManagmentApp.DataLayer.Enums;
+using OrderManagmentApp.WEB.Services.Map;
+using OrderManagmentApp.BusinessLogic.Services;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.WEB.Models;
 
 namespace OrderManagmentApp.WEB
 {
@@ -30,7 +36,18 @@ namespace OrderManagmentApp.WEB
             services.AddControllersWithViews();
             services.AddDataLayerService(Configuration);
             services.AddBusinessLogicService(Configuration);
-          
+
+            services.AddScoped<IMapper<OrderState, string>, MapperOrderStateToString>();
+            services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
+
+            services.AddScoped<IMapper<Order, OrderViewModel>, MapperOrderTo_OrderViewModel>();
+
+            services.AddScoped<IMapper<Customer, CustomerViewModel>, MapperCustomer_CustomerViewModel>();
+            services.AddScoped<IMapper<CustomerViewModel, Customer>, MapperCustomerViewModel_Customer>();
+
+            
+            services.AddScoped<OrderSupplierForMainPage>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +74,7 @@ namespace OrderManagmentApp.WEB
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Main}/{action=MainPage}/{id?}");
             });
         }
     }

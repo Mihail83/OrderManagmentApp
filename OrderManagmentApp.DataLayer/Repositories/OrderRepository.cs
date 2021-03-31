@@ -25,11 +25,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public void Add(OrderEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new OrderEntity { ID=id });
+            _dbSet.Remove(new OrderEntity { Id=id });
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<OrderEntity> FindBy(Expression<Func<OrderEntity, bool>> predicate)
@@ -43,27 +45,24 @@ namespace OrderManagmentApp.DataLayer.Repositories
         }
         public IEnumerable<OrderEntity> GetAllOrdersNoArchive()
         {
-            return _dbSet.Where(order=>order.IsArchive==false)
-                .Include(order=>order.Customer)
+            return _dbSet.Where(order=>order.IsArchived==false)
+                .Include(order => order.Customer)
                 .Include(order => order.Manager)
                 .Include(order => order.ShipmentDestination)
                 .Include(order => order.ShipmentSpecialist)
-                .Include(order => order.OrderInALuteh).AsNoTracking();
+                .Include(order => order.OrderInFactory)
+                .AsNoTracking();
         }
 
         public OrderEntity GetById(int id)
         {
-            return _dbSet.FirstOrDefault(order=>order.ID==id);
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
+            return _dbSet.FirstOrDefault(order=>order.Id==id);
+        }     
 
         public void Update(OrderEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

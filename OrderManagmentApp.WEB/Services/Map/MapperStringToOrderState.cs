@@ -4,7 +4,7 @@ using System.Text;
 using OrderManagmentApp.DataLayer.Enums;
 using OrderManagmentApp.BusinessLogic.Interfaces;
 
-namespace OrderManagmentApp.BusinessLogic.Services.MAP
+namespace OrderManagmentApp.WEB.Services.Map
 {
     class MapperStringToOrderState : IMapper<string, OrderState>
     {
@@ -13,7 +13,7 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
             "В отгрузке" => OrderState.InShipment,
             "На складе" => OrderState.InStore,
             "В работе" => OrderState.InWork,
-            "Реализовано" => OrderState.Realize,
+            "Реализовано" => OrderState.shipped,
             "Отправить в отгрузку" => OrderState.SetShipment,
             "Зависло" => OrderState.StoppedInStore,
             _ => throw new ArgumentException("Invalid mapping from string to orderState")

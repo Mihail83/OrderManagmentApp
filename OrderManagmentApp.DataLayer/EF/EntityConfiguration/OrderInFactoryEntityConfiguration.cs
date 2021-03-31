@@ -7,9 +7,9 @@ using OrderManagmentApp.DataLayer.EntityModels;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class OrderInALutehEntityConfiguration : IEntityTypeConfiguration<OrderInALutehEntity>
+    public class OrderInFactoryEntityConfiguration : IEntityTypeConfiguration<OrderInFactoryEntity>
     {
-        public void Configure(EntityTypeBuilder<OrderInALutehEntity> builder)
+        public void Configure(EntityTypeBuilder<OrderInFactoryEntity> builder)
         {
             builder
                 .HasKey(or => or.ID);            

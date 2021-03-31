@@ -22,11 +22,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public void Add(ManagerEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _dbSet.Remove(new ManagerEntity { Id = id });
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<ManagerEntity> GetAll()
@@ -37,16 +39,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public ManagerEntity GetById(int id)
         {
             return _dbSet.FirstOrDefault(ent => ent.Id == id);
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
+        }       
 
         public void Update(ManagerEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

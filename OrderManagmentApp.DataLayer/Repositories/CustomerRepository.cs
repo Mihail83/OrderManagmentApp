@@ -24,11 +24,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public void Add(CustomerEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _dbSet.Remove(new CustomerEntity { Id=id });
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<CustomerEntity> FindBy(Expression<Func<CustomerEntity, bool>> predicate)
@@ -44,16 +46,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public CustomerEntity GetById(int id)
         {
             return _dbSet.FirstOrDefault( cust=>cust.Id==id );
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
+        }        
 
         public void Update(CustomerEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

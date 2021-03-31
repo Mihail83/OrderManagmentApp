@@ -12,9 +12,9 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
         public void Configure(EntityTypeBuilder<OrderEntity> builder)
         {
             builder
-                .HasKey(order => order.ID);
+                .HasKey(order => order.Id);
             builder
-                .Property(order => order.ID).ValueGeneratedNever();
+                .Property(order => order.Id).ValueGeneratedNever();
             builder
                  .Property(order => order.DateOfCreating).HasDefaultValue(DateTime.Today);            
             builder
@@ -23,40 +23,40 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .HasForeignKey(order => order.CustomerId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
             builder
-                .Property(order => order.CurrentTreaty)
+                .Property(order => order.CurrentAgreement)
                 .HasMaxLength(50);
             builder
                 .Property(order => order.Good)
                 .HasMaxLength(200);
             builder
-                .Property(order => order.ContractAmount)
+                .Property(order => order.ContractSum)
                 .HasColumnType("money");
             builder
                 .Property(order => order.Advance)
                 .HasColumnType("money");
             builder
-                .Property(order => order.Comment)
+                .Property(order => order.AdditionalInfo)
                 .HasMaxLength(200);
             builder
                 .HasOne(order => order.ShipmentSpecialist)
                 .WithMany(sse => sse.OrderEntities)
-                .HasForeignKey(order => order.ShipmentSpecialistId)
+                //.HasForeignKey(order => order.ShipmentSpecialist)
                 .OnDelete(DeleteBehavior.ClientNoAction);
             builder
                .HasOne(order => order.ShipmentDestination)
                .WithMany(shipmentDest => shipmentDest.OrderEntities)
-               .HasForeignKey(order => order.ShipmentDestinationId)
+               //.HasForeignKey(order => order.ShipmentDestinationId)
                .OnDelete(DeleteBehavior.ClientNoAction);
             builder
                 .HasOne(order => order.Manager)
                 .WithMany(manager => manager.OrderEntities)
-                .HasForeignKey(order => order.ManagerId)
+                //.HasForeignKey(order => order.ManagerId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
            
             builder
-                .HasOne(order => order.OrderInALuteh)
+                .HasOne(order => order.OrderInFactory)
                 .WithOne(orderAl => orderAl.Order)
-                .HasForeignKey<OrderInALutehEntity>(orderAL => orderAL.OrderId)
+                .HasForeignKey<OrderInFactoryEntity>(orderAL => orderAL.OrderId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
         }
     }

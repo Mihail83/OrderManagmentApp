@@ -22,11 +22,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public void Add(ShipmentSpecialistEntity entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
             _dbSet.Remove(new ShipmentSpecialistEntity { Id = id });
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<ShipmentSpecialistEntity> GetAll()
@@ -37,16 +39,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public ShipmentSpecialistEntity GetById(int id)
         {
             return _dbSet.FirstOrDefault(ent => ent.Id == id);
-        }
-
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
+        }    
 
         public void Update(ShipmentSpecialistEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

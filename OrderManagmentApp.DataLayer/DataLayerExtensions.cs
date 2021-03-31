@@ -24,7 +24,8 @@ namespace OrderManagmentApp.DataLayer
             
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ITreatyRepository, TreatyRepository>();
-            services.AddScoped<IOrderInALutehRepository, OrderInALutehRepository>();
+            services.AddScoped<IOrderInFactoryRepository, OrderInFactoryRepository>();
+
 
             return services;
         }

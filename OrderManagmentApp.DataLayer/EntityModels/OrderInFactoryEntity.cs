@@ -7,7 +7,7 @@ using OrderManagmentApp.DataLayer.Enums;
 
 namespace OrderManagmentApp.DataLayer.EntityModels
 {
-    public class OrderInALutehEntity
+    public class OrderInFactoryEntity
     {
         public int ID { get; set; }        
         public string StateOfSet { get; set; }        

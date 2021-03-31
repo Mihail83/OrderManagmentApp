@@ -4,39 +4,50 @@ using System.Text;
 using OrderManagmentApp.BusinessLogic.Interfaces;
 using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.DataLayer.Enums;
+
 
 
 namespace OrderManagmentApp.BusinessLogic.Services.MAP
 {
     public class MapperOrderEntityToOrder : IMapper<OrderEntity, Order>
     {
-        public Order Map(OrderEntity model)        
+        private readonly IMapper<OrderState, string> _mapper;
+        public MapperOrderEntityToOrder(IMapper<OrderState, string> mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public Order Map(OrderEntity orderEntity)        
         {
             Order order = new Order
             {
-                ID = model.ID,
-                Advance = model.Advance,
-                Comment = model.Comment,
-                ContractAmount = model.ContractAmount,
-                CurrentTreaty = model.CurrentTreaty,
-                CustomerId = model.CustomerId,
-                CustomerName = model.Customer.Name,
-                DateOfCreating = model.DateOfCreating,
-                Good = model.Good,
-                IsArchive = model.IsArchive,
-                Manager = model.Manager.ManagerName,
-                ManagerId = model.Manager.Id,
-                OrderInALuteh_StateOfShipment = model.OrderInALuteh.StateOfShipment,
-                ShipmentDestination = model.ShipmentDestination.Destination,
-                ShipmentDestinationId = model.ShipmentDestinationId,
-                ShipmentSpecialist = model.ShipmentSpecialist.Specialist,
-                ShipmentSpecialistId = model.ShipmentSpecialistId             
+                Id = orderEntity.Id,
+                Advance = orderEntity.Advance,
+                AdditionalInfo = orderEntity.AdditionalInfo,
+                ContractSum = orderEntity.ContractSum,
+                CurrentAgreement = orderEntity.CurrentAgreement ?? String.Empty,
+                CustomerId = orderEntity.CustomerId,
+                CustomerName = orderEntity.Customer.Name,
+                DateOfCreating = orderEntity.DateOfCreating,
+                Good = orderEntity.Good,
+                IsArchived = orderEntity.IsArchived,
+                Manager = orderEntity.Manager.Name,                
+                OrderInFactory_StateOfShipment = orderEntity.OrderInFactory?.StateOfShipment ?? String.Empty,
+                ShipmentDestination = orderEntity.ShipmentDestination?.Destination ?? String.Empty,                
+                ShipmentSpecialist = orderEntity.ShipmentSpecialist?.Specialist ?? String.Empty,
+                //MainPhoneNumber = orderEntity.Customer.PhoneNumbers.FirstNumber,
+                //SecondPhoneNumber = orderEntity.Customer.PhoneNumbers.SecondNumber,
+                //ThirdPhoneNumber = orderEntity.Customer.PhoneNumbers.ThirdNumber
             };
-            order.CustomerPhones.Add(model.Customer.PhoneNumbers.FirstNumber);
-            order.CustomerPhones.Add(model.Customer.PhoneNumbers.SecondNumber);
-            order.CustomerPhones.Add(model.Customer.PhoneNumbers.ThirdNumber);
+            order.CustomerPhones = new List<string> 
+            {
+                orderEntity.Customer?.Phones?.FirstNumber ?? String.Empty,
+                orderEntity.Customer?.Phones?.SecondNumber ?? String.Empty,
+                orderEntity.Customer?.Phones?.ThirdNumber ?? String.Empty
+            };            
 
-
+            order.OrderState = _mapper.Map(orderEntity.OrderState);
             return order;
         }
     }

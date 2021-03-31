@@ -24,10 +24,16 @@ namespace OrderManagmentApp.BusinessLogic
 
             services.AddScoped<IMapper<OrderEntity, Order>, MapperOrderEntityToOrder>();
             // services.AddScoped<IMapper<Order,OrderEntity>, MapperOrderToOrderEntity>();
-            services.AddScoped<OrderSupplier>();
 
-            services.AddScoped<IMapper<OrderState, string>, MapperOrderStateToString>();
-            services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
+            services.AddScoped<IMapper<CustomerEntity, Customer>, MapperCustomerEntity_Customer>();
+            services.AddScoped<IMapper<Customer, CustomerEntity >, MapperCustomer_CustomerEntity>();
+
+            services.AddScoped<OrderSupplierForMainPage>();
+            services.AddScoped<CustomerSupplier>();
+            services.AddScoped<CustomerToSave>();
+            
+
+
             return services;
         }
     }
