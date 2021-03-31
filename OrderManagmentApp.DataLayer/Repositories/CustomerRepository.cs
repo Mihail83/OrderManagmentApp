@@ -31,16 +31,21 @@ namespace OrderManagmentApp.DataLayer.Repositories
         {
             _dbSet.Remove(new CustomerEntity { Id=id });
             _dbContext.SaveChanges();
-        }
+        }       
 
-        public IEnumerable<CustomerEntity> FindBy(Expression<Func<CustomerEntity, bool>> predicate)
+        public IEnumerable<CustomerEntity> GetAllByExpression(IEnumerable<Expression<Func<CustomerEntity, bool>>> expressions = null)
         {
-            return _dbSet.Where(predicate).AsNoTracking();
-        }
+            var customerEntities = new List<CustomerEntity>();
 
-        public IEnumerable<CustomerEntity> GetAll()
-        {
-            return _dbSet.AsNoTracking();
+            if (expressions == null)
+            {
+                customerEntities.AddRange(_dbSet.AsNoTracking());
+            }
+            else
+            {
+                throw new NotImplementedException(GetType().ToString());
+            }
+            return customerEntities;
         }
 
         public CustomerEntity GetById(int id)

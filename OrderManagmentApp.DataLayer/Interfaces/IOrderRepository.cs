@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Interfaces
 {
-    public interface IOrderRepository : IGenericCrudRepository<OrderEntity>, IGenericAdvancedRepository<OrderEntity>
+    public interface IOrderRepository : IGenericCrudRepository<OrderEntity>
     {
         public IEnumerable<OrderEntity> GetAllOrdersNoArchive();
     }

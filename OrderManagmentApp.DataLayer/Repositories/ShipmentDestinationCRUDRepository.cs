@@ -6,6 +6,7 @@ using OrderManagmentApp.DataLayer.EntityModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using OrderManagmentApp.DataLayer.EF;
+using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
@@ -31,9 +32,19 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<ShipmentDestinationEntity> GetAll()
+        public IEnumerable<ShipmentDestinationEntity> GetAllByExpression(IEnumerable<Expression<Func<ShipmentDestinationEntity, bool>>> expressions = null)
         {
-            return _dbSet.AsNoTracking();
+            var managerEntity = new List<ShipmentDestinationEntity>();
+
+            if (expressions == null)
+            {
+                managerEntity.AddRange(_dbSet.AsNoTracking());
+            }
+            else
+            {
+                throw new NotImplementedException(GetType().ToString());
+            }
+            return managerEntity;
         }
 
         public ShipmentDestinationEntity GetById(int id)
