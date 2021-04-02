@@ -25,7 +25,5 @@ namespace OrderManagmentApp.BusinessLogic.Services
 
             return customer;
         }
-
-
     }
 }

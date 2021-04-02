@@ -27,10 +27,7 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
             builder
                 .OwnsOne(customer => customer.Phones);
             builder
-                .OwnsOne(customer => customer.Company, bankInfo =>
-                {
-                    bankInfo.OwnsOne(c => c.Bank);
-                });
+                .OwnsOne(customer => customer.Company);
             #endregion
             #region WITH seedeng data
             //var customer1 = new CustomerEntity

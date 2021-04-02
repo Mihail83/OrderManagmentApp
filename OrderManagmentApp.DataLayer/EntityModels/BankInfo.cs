@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OrderManagmentApp.DataLayer.EntityModels
 {    
-    public class BankInfo
-    {
-        public string Name { get; set; }
-        public string Number { get; set; }
-        public string Account { get; set; }
-    }
+    //public class BankInfo
+    //{
+    //    public string Name { get; set; }
+    //    public string Number { get; set; }
+    //    public string Account { get; set; }
+    //}
 }

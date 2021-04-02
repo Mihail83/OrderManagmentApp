@@ -30,7 +30,10 @@ namespace OrderManagmentApp.BusinessLogic
 
             services.AddScoped<OrderSupplierForMainPage>();
             services.AddScoped<CustomerSupplier>();
-            services.AddScoped<CustomerToSave>();
+            services.AddScoped<CustomerServiceForSaveEdited>();
+            services.AddScoped<CustomerServiceForSaveNew>();
+            
+            services.AddScoped<Customers_Supplier>();
             
 
 

@@ -8,21 +8,20 @@ using OrderManagmentApp.DataLayer.EntityModels;
 
 namespace OrderManagmentApp.BusinessLogic.Services
 {
-    public class CustomerToSave
+    public class CustomerServiceForSaveNew
     {
         private readonly IMapper<Customer, CustomerEntity> _mapper;
         private readonly ICustomerRepository _customerRepository;
-        public CustomerToSave(IMapper<Customer, CustomerEntity> mapper, ICustomerRepository customerRepository)
+        public CustomerServiceForSaveNew(IMapper<Customer, CustomerEntity> mapper, ICustomerRepository customerRepository)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
         }
 
-        public void SaveEditedCustomer(Customer customer)
+        public void SaveNewCustomer(Customer customer)
         {
             var customerEntity = _mapper.Map(customer);
-            _customerRepository.Update(customerEntity);
-            
+            _customerRepository.Add(customerEntity);            
         }
     }
 }

@@ -21,19 +21,15 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
                     SecondNumber = model.SecondPhone, 
                     ThirdNumber = model.ThirdPhone 
                 },
-                Emeil = model.Emeil,
+                Emeil = model.Emeil ?? String.Empty,
                 AdditionalInfo = model.AdditionalInfo ?? string.Empty,
                 Company = model.CompanyName != null ? new Company
                 {
-                    Bank = new BankInfo {
-                        Name = model.BankName,
-                        Number = model.BankNumber,
-                        Account = model.BankAccount,
-                    },
+                    
                     Name = model.CompanyName,
                     TaxPayerId = model.CompanyTaxPayerId,
                     Address = model.CompanyAddress,
-                    OKPO = model.CompanyOKPO,
+                    BankAccount = model.BankAccount,
                 } :null
             };            
         }

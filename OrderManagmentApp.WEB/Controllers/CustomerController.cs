@@ -14,73 +14,88 @@ namespace OrderManagmentApp.WEB.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: CustomerController
-        public ActionResult Index()
+        IMapper<Customer, CustomerViewModel> _mapperToViewModel;
+        IMapper<CustomerViewModel, Customer> _mapperToBysinessModel;
+        public CustomerController
+            (
+            IMapper<Customer, CustomerViewModel> mapperToViewModel,
+            IMapper<CustomerViewModel, Customer> mapperToBysinessModel
+            )
+        {
+            _mapperToViewModel = mapperToViewModel;
+            _mapperToBysinessModel = mapperToBysinessModel;
+        }
+
+        public ActionResult CustomerManager([FromServices] Customers_Supplier customersSupplier)
+        {
+            var customers = customersSupplier.GetAllCustomer();
+            List<CustomerViewModel> customerViewModels = null;
+            if (customers !=null)
+            {
+                customerViewModels = new List<CustomerViewModel>();
+                foreach (var customer in customers)
+                {
+                    customerViewModels.Add(_mapperToViewModel.Map(customer));
+                }                
+            }
+            return View(customerViewModels);
+        }
+                
+        ActionResult Details(int id)
         {
             return View();
         }
-
-        // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CustomerController/Create
+                
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: CustomerController/Create
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        
-        public ActionResult Edit(             
-            [FromServices] CustomerSupplier customerSupplier,
-            [FromServices] IMapper<Customer, CustomerViewModel> mapper,
-            int id = 1)
-        {
-
-           
-
-            return View(mapper.Map(customerSupplier.GetCustomerById(id)));
-        }
-
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            CustomerViewModel customerViewModel,
-            [FromServices] CustomerToSave customerSaver,
-            [FromServices] IMapper<CustomerViewModel, Customer > mapper
+        public ActionResult Create
+            (
+            [FromServices] CustomerServiceForSaveNew customerServiceForNew, 
+            CustomerViewModel customerViewModel, IFormCollection collection
             )
         {
             if (ModelState.IsValid)
             {
-                customerSaver.SaveEditedCustomer(mapper.Map(customerViewModel));
+                customerServiceForNew.SaveNewCustomer(_mapperToBysinessModel.Map(customerViewModel));
             }
-
-
+            else
+            {
+                return View(customerViewModel);
+            }
             
-                return RedirectToAction(nameof(Edit));
-          
+                return RedirectToAction(nameof(CustomerManager));            
+        }        
+        public ActionResult Edit([FromServices] CustomerSupplier customerSupplier, int id = 1)
+        {
+            return View(_mapperToViewModel.Map(customerSupplier.GetCustomerById(id)));
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit
+            (
+            CustomerViewModel customerViewModel,
+            [FromServices] CustomerServiceForSaveEdited customerSaver
+            )
+        {
+            if (ModelState.IsValid)
+            {
+                customerSaver.SaveEditedCustomer(_mapperToBysinessModel.Map(customerViewModel));
+            }
+            else
+            {
+                return View(customerViewModel);
+            }
+                return RedirectToAction(nameof(CustomerManager));          
         }
 
         // GET: CustomerController/Delete/5
-        public ActionResult Delete(int id)
+        ActionResult Delete(int id)
         {
             return View();
         }
@@ -88,16 +103,17 @@ namespace OrderManagmentApp.WEB.Controllers
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CustomerManager));
             }
             catch
             {
                 return View();
             }
         }
+        
     }
 }

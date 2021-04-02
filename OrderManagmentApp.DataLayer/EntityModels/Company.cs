@@ -10,9 +10,8 @@ namespace OrderManagmentApp.DataLayer.EntityModels
     public class Company
     {
         public string Name { get; set; }
-        public string TaxPayerId { get; set; }
-        public BankInfo Bank { get; set; }
+        public string TaxPayerId { get; set; }        
         public string Address { get; set; }
-        public ulong OKPO { get; set; }
+        public string BankAccount { get; set; }
     }
 }

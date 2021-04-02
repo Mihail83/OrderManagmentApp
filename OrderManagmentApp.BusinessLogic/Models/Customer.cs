@@ -19,14 +19,14 @@ namespace OrderManagmentApp.BusinessLogic.Models
         public string CompanyName { get; set; }
         public string CompanyTaxPayerId { get; set; }
         public string CompanyAddress { get; set; }
-        public ulong  CompanyOKPO { get; set; }
-        public string BankName { get; set; }
-        public string BankNumber { get; set; }
+        //public ulong?  CompanyOKPO { get; set; }
+        //public string BankName { get; set; }
+        //public string BankNumber { get; set; }
         public string BankAccount { get; set; }
         
 
-        public List<int> OrdersId { get; set; }   //как передать только ИД?
-        public List<int> AgreementsId { get; set; } //как передать только ИД?
+        public List<int> OrdersId { get; set; }   
+        public List<int> AgreementsId { get; set; } 
 
     }
 }
