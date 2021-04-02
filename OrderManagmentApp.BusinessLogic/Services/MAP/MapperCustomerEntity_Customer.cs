@@ -17,21 +17,19 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
             {
                 Id = model.Id,
                 Name = model.Name,
-                Address = model.Address ?? string.Empty,
+                Address = model.Address ?? String.Empty,
                 FirstPhone = model.Phones?.FirstNumber ?? String.Empty,
-                SecondPhone = model.Phones?.SecondNumber ?? null,
-                ThirdPhone = model.Phones?.ThirdNumber ?? null ,   //   null   or empty
-                Emeil = model.Emeil,
+                SecondPhone = model.Phones?.SecondNumber ?? String.Empty,
+                ThirdPhone = model.Phones?.ThirdNumber ?? String.Empty,   //   null   or empty
+                Emeil = model.Emeil ?? String.Empty,
                 AdditionalInfo = model.AdditionalInfo ?? String.Empty                
             };
             if (model.Company !=null)
             {
+                customer.CompanyName = model.Company?.Name;
                 customer.CompanyTaxPayerId = model.Company?.TaxPayerId;
-                customer.CompanyAddress = model.Company?.Address;
-                customer.CompanyOKPO = model.Company?.OKPO ?? 0;
-                customer.BankName = model.Company?.Bank?.Name;
-                customer.BankNumber = model.Company?.Bank?.Number;
-                customer.BankAccount = model.Company?.Bank?.Account; 
+                customer.CompanyAddress = model.Company?.Address;                
+                customer.BankAccount = model.Company?.BankAccount; 
             }
                 return customer;
         }

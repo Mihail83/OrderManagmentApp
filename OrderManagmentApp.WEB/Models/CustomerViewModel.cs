@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using OrderManagmentApp.WEB.Services.Validation;
 
 namespace OrderManagmentApp.WEB.Models
 {
+    [CompanyOfCustomerValidation]
     public class CustomerViewModel
     {
+        [ScaffoldColumn(true)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Введите Имя клиента")]
         [Display(Name ="Имя")]
         public string Name { get; set; }
         [Display(Name = "Адрес")]
-        public string Address { get; set; }
-        [Required]
-        //public List<string> PhoneNumbers { get; set; }
-        [Phone]
+        public string Address { get; set; }        
+        
+        [Required(ErrorMessage = "Введите телефонный номер")]        
+        [DataType(DataType.PhoneNumber)]        
+        [RegularExpression(@"^\+[0-9]{3}[ /-][0-9]{2}[ -/][0-9]{3}[ /-][0-9]{2}[ -/][0-9]{2}$", ErrorMessage = "+XXX XX XXX XX XX")]
         [Display(Name = "Телефон")]
         public string FirstPhone { get; set; }
         [Phone]
         [Display(Name = "доп телефон")]
         public string SecondPhone { get; set; }
         [Phone]
-        [Display(Name = "доп телефон")]
+        [Display(Name = "доп телефон 2")]
         public string ThirdPhone { get; set; }
         [EmailAddress]
         [Display(Name = "Электронная почта")]
         public string Emeil { get; set; }
-        [Display(Name = "Информация")]
+        [Display(Name = "Комментарий")]
         public string AdditionalInfo { get; set; }
+
         [Display(Name = "Название компании")]
         public string CompanyName { get; set; }
        
@@ -37,16 +42,7 @@ namespace OrderManagmentApp.WEB.Models
         public string CompanyTaxPayerId { get; set; }
         
         [Display(Name = "Адрес компании ")]
-        public string CompanyAddress { get; set; }
-       
-        [Display(Name = "ОКПО")]
-        public ulong CompanyOKPO { get; set; }
-       
-
-        [Display(Name = "Название банка")]
-        public string BankName { get; set; }
-        [Display(Name = "Код Банка")]
-        public string BankNumber { get; set; }
+        public string CompanyAddress { get; set; }    
         
         [Display(Name = "Номер счета")]
         public string BankAccount { get; set; }

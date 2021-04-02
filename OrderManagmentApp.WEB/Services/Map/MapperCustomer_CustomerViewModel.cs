@@ -27,10 +27,7 @@ namespace OrderManagmentApp.WEB.Services.Map
             {
                 customerViewModel.CompanyName = model.CompanyName;
                 customerViewModel.CompanyAddress = model.CompanyAddress;
-                customerViewModel.CompanyTaxPayerId = model.CompanyTaxPayerId;
-                customerViewModel.CompanyOKPO = model.CompanyOKPO;
-                customerViewModel.BankName = model.BankName;
-                customerViewModel.BankNumber = model.BankNumber;
+                customerViewModel.CompanyTaxPayerId = model.CompanyTaxPayerId;                
                 customerViewModel.BankAccount= model.BankAccount;
             }            
             return customerViewModel;            

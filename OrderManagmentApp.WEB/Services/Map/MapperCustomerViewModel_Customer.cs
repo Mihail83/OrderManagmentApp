@@ -22,17 +22,12 @@ namespace OrderManagmentApp.WEB.Services.Map
                 FirstPhone = model.FirstPhone,
                 SecondPhone = model.SecondPhone,
                 ThirdPhone = model.ThirdPhone
-            };          
-            if (!String.IsNullOrWhiteSpace(model.CompanyName) && model.CompanyName.Length > 2)
-            {
-                customer.CompanyName = model.CompanyName;
-                customer.CompanyAddress = model.CompanyAddress;
-                customer.CompanyTaxPayerId = model.CompanyTaxPayerId;
-                customer.CompanyOKPO = model.CompanyOKPO;
-                customer.BankName = model.BankName;
-                customer.BankNumber = model.BankNumber;
-                customer.BankAccount = model.BankAccount;
-            }
+            };              
+                customer.CompanyName = model.CompanyName ?? String.Empty;
+                customer.CompanyAddress = model.CompanyAddress ?? String.Empty;
+                customer.CompanyTaxPayerId = model.CompanyTaxPayerId ?? String.Empty;               
+                customer.BankAccount = model.BankAccount ?? String.Empty;
+            
             return customer;
         }
     }

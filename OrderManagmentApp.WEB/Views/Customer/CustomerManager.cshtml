@@ -1,0 +1,93 @@
+﻿@model IEnumerable<OrderManagmentApp.WEB.Models.CustomerViewModel>
+
+@{
+    ViewData["Title"] = "Клиенты";
+}
+
+<h1>CustomerManager</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table  class="table table-hover table-bordered">
+    <thead>
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThirdPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emeil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdditionalInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyTaxPayerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyAddress)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccount)
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr id="@item.Id">
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThirdPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Emeil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyTaxPayerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankAccount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

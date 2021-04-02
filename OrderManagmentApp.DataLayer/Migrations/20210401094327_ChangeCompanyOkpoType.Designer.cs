@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderManagmentApp.DataLayer.EF;
 
 namespace OrderManagmentApp.DataLayer.Migrations
 {
     [DbContext(typeof(OrderManagmentAppContext))]
-    partial class OrderManagmentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210401094327_ChangeCompanyOkpoType")]
+    partial class ChangeCompanyOkpoType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,11 +294,11 @@ namespace OrderManagmentApp.DataLayer.Migrations
                             b1.Property<string>("Address")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("BankAccount")
-                                .HasColumnType("nvarchar(max)");
-
                             b1.Property<string>("Name")
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<decimal?>("OKPO")
+                                .HasColumnType("decimal(20,0)");
 
                             b1.Property<string>("TaxPayerId")
                                 .HasColumnType("nvarchar(max)");
@@ -307,6 +309,32 @@ namespace OrderManagmentApp.DataLayer.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("CustomerEntityId");
+
+                            b1.OwnsOne("OrderManagmentApp.DataLayer.EntityModels.BankInfo", "Bank", b2 =>
+                                {
+                                    b2.Property<int>("CompanyCustomerEntityId")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("int")
+                                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                                    b2.Property<string>("Account")
+                                        .HasColumnType("nvarchar(max)");
+
+                                    b2.Property<string>("Name")
+                                        .HasColumnType("nvarchar(max)");
+
+                                    b2.Property<string>("Number")
+                                        .HasColumnType("nvarchar(max)");
+
+                                    b2.HasKey("CompanyCustomerEntityId");
+
+                                    b2.ToTable("Customers");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("CompanyCustomerEntityId");
+                                });
+
+                            b1.Navigation("Bank");
                         });
 
                     b.OwnsOne("OrderManagmentApp.DataLayer.EntityModels.Phones", "Phones", b1 =>
