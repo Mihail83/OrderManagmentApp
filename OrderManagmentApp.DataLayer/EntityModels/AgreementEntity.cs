@@ -14,5 +14,7 @@ namespace OrderManagmentApp.DataLayer.EntityModels
         public decimal Sum { get; set; }
         public int CustomerId { get; set; }
         public  CustomerEntity Customer { get; set; }
+       
+        public OrderEntityAgreementEntity OrderAgreement { get; set; }
     }
 }

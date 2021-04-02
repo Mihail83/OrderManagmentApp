@@ -22,9 +22,9 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .WithMany(c => c.Orders)
                 .HasForeignKey(order => order.CustomerId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
-            builder
-                .Property(order => order.CurrentAgreement)
-                .HasMaxLength(50);
+            //builder
+            //    .Property(order => order.CurrentAgreement)
+            //    .HasMaxLength(50);
             builder
                 .Property(order => order.Good)
                 .HasMaxLength(200);
@@ -58,6 +58,11 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .WithOne(orderAl => orderAl.Order)
                 .HasForeignKey<OrderInFactoryEntity>(orderAL => orderAL.OrderId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
+            //builder
+            //    .HasOne(order => order.CurrentAgreement)
+            //    .WithOne(agr => agr.Order)
+            //    .HasForeignKey<AgreementEntity>(agreement => agreement.OrderId);
+                
         }
     }
 }

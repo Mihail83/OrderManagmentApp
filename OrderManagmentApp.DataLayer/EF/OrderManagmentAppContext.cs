@@ -32,6 +32,7 @@ namespace OrderManagmentApp.DataLayer.EF
             modelBuilder.ApplyConfiguration(new ShipmentDestinationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentDestinationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new AgreementEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new Agreement_Order_Configuration());
             modelBuilder.Owned<Phones>();
 
             ManagerEntity manager1 = new ManagerEntity {Id = 1,  Name = "FirstTestManager" };
