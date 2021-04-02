@@ -13,8 +13,12 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
         {            
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
             builder
-                .Property(treaty => treaty.Sum)
+                .Property(agreement => agreement.Sum)
                 .HasColumnType("money");
+            //builder
+            //    .HasOne(agreement => agreement.Order)
+            //    .WithOne(ord => ord.CurrentAgreement)
+            //    .HasForeignKey<OrderEntity>(ord => ord.CurrentAgreementID);
             
         }
     }

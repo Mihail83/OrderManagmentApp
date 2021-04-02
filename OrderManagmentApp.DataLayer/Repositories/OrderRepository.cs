@@ -56,6 +56,8 @@ namespace OrderManagmentApp.DataLayer.Repositories
                 .Include(order => order.ShipmentDestination)
                 .Include(order => order.ShipmentSpecialist)
                 .Include(order => order.OrderInFactory)
+                .Include(order=> order.OrderAgreement)
+                    .ThenInclude(ordAgr=> ordAgr.Agreement)
                 .AsNoTracking();
         }
 

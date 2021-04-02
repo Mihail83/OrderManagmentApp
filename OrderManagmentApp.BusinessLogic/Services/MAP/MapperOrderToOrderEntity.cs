@@ -18,7 +18,7 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
                 Advance = order.Advance,
                 AdditionalInfo = order.AdditionalInfo,
                 ContractSum = order.ContractSum,
-                CurrentAgreement = order.CurrentAgreement,
+                //CurrentAgreement = order.CurrentAgreement,
                 CustomerId = order.CustomerId,
                 Good = order.Good,
                 IsArchived = order.IsArchived,

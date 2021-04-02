@@ -12,9 +12,11 @@ namespace OrderManagmentApp.BusinessLogic.Models
 
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }        
-        public List<string> CustomerPhones { get; set; }        
+        public List<string> CustomerPhones { get; set; }
+
+        public int? CurrentAgreementId { get; set; }
         public string CurrentAgreement { get; set; }
-        public string Good { get; set; }    
+        public string Good { get; set; }        
         public decimal ContractSum { get; set; }   
         public decimal Advance { get; set; }
         public string AdditionalInfo { get; set; }
