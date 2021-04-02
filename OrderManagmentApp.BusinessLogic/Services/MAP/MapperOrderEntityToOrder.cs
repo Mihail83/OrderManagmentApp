@@ -25,12 +25,12 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
                 Id = orderEntity.Id,
                 Advance = orderEntity.Advance,
                 AdditionalInfo = orderEntity.AdditionalInfo,
-                ContractSum = orderEntity.ContractSum,
-                CurrentAgreement = orderEntity.CurrentAgreement ?? String.Empty,
+
+                    
+                    
                 CustomerId = orderEntity.CustomerId,
                 CustomerName = orderEntity.Customer.Name,
-                DateOfCreating = orderEntity.DateOfCreating,
-                Good = orderEntity.Good,
+                DateOfCreating = orderEntity.DateOfCreating,                    
                 IsArchived = orderEntity.IsArchived,
                 Manager = orderEntity.Manager.Name,                
                 OrderInFactory_StateOfShipment = orderEntity.OrderInFactory?.StateOfShipment ?? String.Empty,
@@ -45,9 +45,18 @@ namespace OrderManagmentApp.BusinessLogic.Services.MAP
                 orderEntity.Customer?.Phones?.FirstNumber ?? String.Empty,
                 orderEntity.Customer?.Phones?.SecondNumber ?? String.Empty,
                 orderEntity.Customer?.Phones?.ThirdNumber ?? String.Empty
-            };            
-
+            };
             order.OrderState = _mapper.Map(orderEntity.OrderState);
+            if (orderEntity.OrderAgreement?.Agreement==null)
+            {
+                order.ContractSum = orderEntity.ContractSum;
+                order.Good = orderEntity.Good;
+            }
+            else
+            {
+                order.ContractSum = orderEntity.OrderAgreement.Agreement.Sum;
+                order.Good = orderEntity.OrderAgreement.Agreement.Good;
+            }
             return order;
         }
     }
