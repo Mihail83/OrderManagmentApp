@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagmentApp.WEB", "OrderManagmentApp.WEB\OrderManagmentApp.WEB.csproj", "{294C4BE7-3CFB-4F19-85F6-C49B84A912CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.WEB", "OrderManagmentApp.WEB\OrderManagmentApp.WEB.csproj", "{294C4BE7-3CFB-4F19-85F6-C49B84A912CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagmentApp.DataLayer", "OrderManagmentApp.DataLayer\OrderManagmentApp.DataLayer.csproj", "{27CF84FC-27D2-4805-B794-FBEA1F8A1812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.DataLayer", "OrderManagmentApp.DataLayer\OrderManagmentApp.DataLayer.csproj", "{27CF84FC-27D2-4805-B794-FBEA1F8A1812}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagmentApp.BusinessLogic", "OrderManagmentApp.BusinessLogic\OrderManagmentApp.BusinessLogic.csproj", "{E4967393-8072-48DD-B0D7-285AD4F1675B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.BusinessLogic", "OrderManagmentApp.BusinessLogic\OrderManagmentApp.BusinessLogic.csproj", "{E4967393-8072-48DD-B0D7-285AD4F1675B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagmentApp.Infrastructure", "OrderManagmentApp.Infrastructure\OrderManagmentApp.Infrastructure.csproj", "{532CD27C-4B92-469C-8C2E-73A552E2B291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E4967393-8072-48DD-B0D7-285AD4F1675B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4967393-8072-48DD-B0D7-285AD4F1675B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4967393-8072-48DD-B0D7-285AD4F1675B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{532CD27C-4B92-469C-8C2E-73A552E2B291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{532CD27C-4B92-469C-8C2E-73A552E2B291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{532CD27C-4B92-469C-8C2E-73A552E2B291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{532CD27C-4B92-469C-8C2E-73A552E2B291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,3 @@
-using System;
-
 namespace OrderManagmentApp.WEB.Models
 {
     public class ErrorViewModel

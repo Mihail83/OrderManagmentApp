@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class Agreement_Order_Configuration : IEntityTypeConfiguration<OrderEntityAgreementEntity>
+    public class Agreement_Order_Configuration : IEntityTypeConfiguration<OrderAgreement>
     {
-        public void Configure(EntityTypeBuilder<OrderEntityAgreementEntity> builder)
+        public void Configure(EntityTypeBuilder<OrderAgreement> builder)
         {
-            builder.HasKey(key=> new {key.OrderEntityId, key.AgreementEntityId });
-            builder.HasIndex(entity =>entity.OrderEntityId).IsUnique();            
+            builder.HasKey(key => new { key.OrderId, key.AgreementId });
+            builder.HasIndex(entity => entity.OrderId).IsUnique();
         }
     }
 }

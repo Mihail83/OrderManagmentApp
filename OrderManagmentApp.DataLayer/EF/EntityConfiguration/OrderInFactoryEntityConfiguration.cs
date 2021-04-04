@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class OrderInFactoryEntityConfiguration : IEntityTypeConfiguration<OrderInFactoryEntity>
+    public class OrderInFactoryEntityConfiguration : IEntityTypeConfiguration<OrderInFactory>
     {
-        public void Configure(EntityTypeBuilder<OrderInFactoryEntity> builder)
+        public void Configure(EntityTypeBuilder<OrderInFactory> builder)
         {
             builder
-                .HasKey(or => or.ID);            
+                .HasKey(or => or.ID);
             builder
                 .Property(or => or.ID)
                 .ValueGeneratedNever();

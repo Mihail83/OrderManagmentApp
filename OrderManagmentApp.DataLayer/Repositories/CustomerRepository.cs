@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using System.Linq.Expressions;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<CustomerEntity> _dbSet;
+        private readonly DbSet<Customer> _dbSet;
 
         public CustomerRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<CustomerEntity>();
+            _dbSet = _dbContext.Set<Customer>();
 
         }
-        public void Add(CustomerEntity entity)
+        public void Add(Customer entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
@@ -29,13 +28,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new CustomerEntity { Id=id });
+            _dbSet.Remove(new Customer { Id = id });
             _dbContext.SaveChanges();
-        }       
+        }
 
-        public IEnumerable<CustomerEntity> GetAllByExpression(IEnumerable<Expression<Func<CustomerEntity, bool>>> expressions = null)
+        public IEnumerable<Customer> GetAllByExpression(IEnumerable<Expression<Func<Customer, bool>>> expressions = null)
         {
-            var customerEntities = new List<CustomerEntity>();
+            var customerEntities = new List<Customer>();
 
             if (expressions == null)
             {
@@ -48,12 +47,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return customerEntities;
         }
 
-        public CustomerEntity GetById(int id)
+        public Customer GetById(int id)
         {
-            return _dbSet.FirstOrDefault( cust=>cust.Id==id );
-        }        
+            return _dbSet.FirstOrDefault(cust => cust.Id == id);
+        }
 
-        public void Update(CustomerEntity entity)
+        public void Update(Customer entity)
         {
             _dbSet.Update(entity);
             _dbContext.SaveChanges();

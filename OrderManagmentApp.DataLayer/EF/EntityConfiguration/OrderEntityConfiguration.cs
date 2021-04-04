@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
+using System;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class OrderEntityConfiguration : IEntityTypeConfiguration<OrderEntity>
+    public class OrderEntityConfiguration : IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<OrderEntity> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder
                 .HasKey(order => order.Id);
             builder
                 .Property(order => order.Id).ValueGeneratedNever();
             builder
-                 .Property(order => order.DateOfCreating).HasDefaultValue(DateTime.Today);            
+                 .Property(order => order.DateOfCreating).HasDefaultValue(DateTime.Today);
             builder
                 .HasOne(order => order.Customer)
                 .WithMany(c => c.Orders)
@@ -28,6 +26,7 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
             builder
                 .Property(order => order.Good)
                 .HasMaxLength(200);
+
             builder
                 .Property(order => order.ContractSum)
                 .HasColumnType("money");
@@ -39,12 +38,12 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .HasMaxLength(200);
             builder
                 .HasOne(order => order.ShipmentSpecialist)
-                .WithMany(sse => sse.OrderEntities)
+                .WithMany(sse => sse.Orders)
                 //.HasForeignKey(order => order.ShipmentSpecialist)
                 .OnDelete(DeleteBehavior.ClientNoAction);
             builder
                .HasOne(order => order.ShipmentDestination)
-               .WithMany(shipmentDest => shipmentDest.OrderEntities)
+               .WithMany(shipmentDest => shipmentDest.Orders)
                //.HasForeignKey(order => order.ShipmentDestinationId)
                .OnDelete(DeleteBehavior.ClientNoAction);
             builder
@@ -52,17 +51,17 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .WithMany(manager => manager.OrderEntities)
                 //.HasForeignKey(order => order.ManagerId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
-           
+
             builder
                 .HasOne(order => order.OrderInFactory)
                 .WithOne(orderAl => orderAl.Order)
-                .HasForeignKey<OrderInFactoryEntity>(orderAL => orderAL.OrderId)
+                .HasForeignKey<OrderInFactory>(orderAL => orderAL.OrderId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
             //builder
             //    .HasOne(order => order.CurrentAgreement)
             //    .WithOne(agr => agr.Order)
             //    .HasForeignKey<AgreementEntity>(agreement => agreement.OrderId);
-                
+
         }
     }
 }

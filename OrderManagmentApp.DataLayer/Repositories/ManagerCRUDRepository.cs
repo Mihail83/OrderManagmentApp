@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
-    class ManagerCRUDRepository : IGenericCrudRepository<ManagerEntity>
+    class ManagerCRUDRepository : IGenericCrudRepository<Manager>
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<ManagerEntity> _dbSet;
+        private readonly DbSet<Manager> _dbSet;
         public ManagerCRUDRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<ManagerEntity>();
+            _dbSet = _dbContext.Set<Manager>();
 
         }
-        public void Add(ManagerEntity entity)
+        public void Add(Manager entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
@@ -28,13 +27,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new ManagerEntity { Id = id });
+            _dbSet.Remove(new Manager { Id = id });
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<ManagerEntity> GetAllByExpression(IEnumerable<Expression<Func<ManagerEntity, bool>>> expressions = null)
+        public IEnumerable<Manager> GetAllByExpression(IEnumerable<Expression<Func<Manager, bool>>> expressions = null)
         {
-            var managerEntity = new List<ManagerEntity>();
+            var managerEntity = new List<Manager>();
 
             if (expressions == null)
             {
@@ -47,12 +46,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return managerEntity;
         }
 
-        public ManagerEntity GetById(int id)
+        public Manager GetById(int id)
         {
             return _dbSet.FirstOrDefault(ent => ent.Id == id);
-        }       
+        }
 
-        public void Update(ManagerEntity entity)
+        public void Update(Manager entity)
         {
             _dbSet.Update(entity);
             _dbContext.SaveChanges();

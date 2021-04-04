@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using System.Linq.Expressions;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
     public class TreatyRepository : ITreatyRepository
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<AgreementEntity> _dbSet;
+        private readonly DbSet<Agreement> _dbSet;
 
         public TreatyRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<AgreementEntity>();
+            _dbSet = _dbContext.Set<Agreement>();
 
         }
-        public void Add(AgreementEntity entity)
+        public void Add(Agreement entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
@@ -29,13 +28,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new AgreementEntity { Id = id });
+            _dbSet.Remove(new Agreement { Id = id });
             _dbContext.SaveChanges();
-        }     
+        }
 
-        public IEnumerable<AgreementEntity> GetAllByExpression(IEnumerable<Expression<Func<AgreementEntity, bool>>> expressions = null)
+        public IEnumerable<Agreement> GetAllByExpression(IEnumerable<Expression<Func<Agreement, bool>>> expressions = null)
         {
-            var managerEntity = new List<AgreementEntity>();
+            var managerEntity = new List<Agreement>();
 
             if (expressions == null)
             {
@@ -48,12 +47,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return managerEntity;
         }
 
-        public AgreementEntity GetById(int id)
+        public Agreement GetById(int id)
         {
             return _dbSet.FirstOrDefault(treaty => treaty.Id == id);
-        }     
+        }
 
-        public void Update(AgreementEntity entity)
+        public void Update(Agreement entity)
         {
             _dbSet.Update(entity);
             _dbContext.SaveChanges();

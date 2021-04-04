@@ -1,23 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OrderManagmentApp.DataLayer;
 using OrderManagmentApp.BusinessLogic;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.Repositories;
 using OrderManagmentApp.BusinessLogic.Interfaces;
-using OrderManagmentApp.DataLayer.Enums;
-using OrderManagmentApp.WEB.Services.Map;
-using OrderManagmentApp.BusinessLogic.Services;
 using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Services;
+using OrderManagmentApp.DataLayer;
 using OrderManagmentApp.WEB.Models;
+using OrderManagmentApp.WEB.Services.Map;
 
 namespace OrderManagmentApp.WEB
 {
@@ -37,16 +29,16 @@ namespace OrderManagmentApp.WEB
             services.AddDataLayerService(Configuration);
             services.AddBusinessLogicService(Configuration);
 
-            services.AddScoped<IMapper<OrderState, string>, MapperOrderStateToString>();
-            services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
+            //services.AddScoped<IMapper<OrderState, string>, MapperOrderStateToString>();
+            //services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
 
             services.AddScoped<IMapper<Order, OrderViewModel>, MapperOrderTo_OrderViewModel>();
 
             services.AddScoped<IMapper<Customer, CustomerViewModel>, MapperCustomer_CustomerViewModel>();
             services.AddScoped<IMapper<CustomerViewModel, Customer>, MapperCustomerViewModel_Customer>();
 
-            
-            services.AddScoped<OrderSupplierForMainPage>();
+
+            services.AddScoped<OrderService>();
 
         }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace OrderManagmentApp.DataLayer.Enums
+namespace OrderManagmentApp.Infrastructure.Enums
 {
-    public enum OrderState 
+    public enum OrderState
     {
-        [Display(Name ="В работе")]
+        [Display(Name = "В работе")]
         InWork = 0,
         [Display(Name = "Отправить в отгрузку")]
         SetShipment,
@@ -19,5 +16,5 @@ namespace OrderManagmentApp.DataLayer.Enums
         shipped,
         [Display(Name = "Зависло")]
         StoppedInStore
-    }    
+    }
 }

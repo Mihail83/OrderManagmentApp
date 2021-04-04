@@ -1,97 +1,95 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using OrderManagmentApp.BusinessLogic.Interfaces;
-using OrderManagmentApp.WEB.Models;
-using OrderManagmentApp.WEB.Services;
-using OrderManagmentApp.BusinessLogic.Services;
 using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Services;
+using OrderManagmentApp.WEB.Models;
+using System.Collections.Generic;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
     public class CustomerController : Controller
     {
-        IMapper<Customer, CustomerViewModel> _mapperToViewModel;
-        IMapper<CustomerViewModel, Customer> _mapperToBysinessModel;
+        readonly IMapper<Customer, CustomerViewModel> _mapperToViewModel;
+        readonly IMapper<CustomerViewModel, Customer> _mapperToBysinessModel;
+        readonly CustomerService _customerService;
         public CustomerController
             (
             IMapper<Customer, CustomerViewModel> mapperToViewModel,
-            IMapper<CustomerViewModel, Customer> mapperToBysinessModel
+            IMapper<CustomerViewModel, Customer> mapperToBysinessModel,
+            CustomerService customerService
             )
         {
             _mapperToViewModel = mapperToViewModel;
             _mapperToBysinessModel = mapperToBysinessModel;
+            _customerService = customerService;
         }
 
-        public ActionResult CustomerManager([FromServices] Customers_Supplier customersSupplier)
+        public ActionResult CustomerManager()
         {
-            var customers = customersSupplier.GetAllCustomer();
+            var customers = _customerService.GetAllCustomer();
             List<CustomerViewModel> customerViewModels = null;
-            if (customers !=null)
+            if (customers != null)
             {
                 customerViewModels = new List<CustomerViewModel>();
                 foreach (var customer in customers)
                 {
                     customerViewModels.Add(_mapperToViewModel.Map(customer));
-                }                
+                }
             }
             return View(customerViewModels);
         }
-                
+
         ActionResult Details(int id)
         {
             return View();
         }
-                
+
         public ActionResult Create()
         {
             return View();
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create
             (
-            [FromServices] CustomerServiceForSaveNew customerServiceForNew, 
+            
             CustomerViewModel customerViewModel, IFormCollection collection
             )
         {
             if (ModelState.IsValid)
             {
-                customerServiceForNew.SaveNewCustomer(_mapperToBysinessModel.Map(customerViewModel));
+                _customerService.SaveNewCustomer(_mapperToBysinessModel.Map(customerViewModel));
             }
             else
             {
                 return View(customerViewModel);
             }
-            
-                return RedirectToAction(nameof(CustomerManager));            
-        }        
-        public ActionResult Edit([FromServices] CustomerSupplier customerSupplier, int id = 1)
-        {
-            return View(_mapperToViewModel.Map(customerSupplier.GetCustomerById(id)));
+
+            return RedirectToAction(nameof(CustomerManager));
         }
-        
+        public ActionResult Edit(int id = 1)
+        {
+            return View(_mapperToViewModel.Map(_customerService.GetCustomerById(id)));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit
             (
-            CustomerViewModel customerViewModel,
-            [FromServices] CustomerServiceForSaveEdited customerSaver
+            CustomerViewModel customerViewModel            
             )
         {
             if (ModelState.IsValid)
             {
-                customerSaver.SaveEditedCustomer(_mapperToBysinessModel.Map(customerViewModel));
+                _customerService.SaveEditedCustomer(_mapperToBysinessModel.Map(customerViewModel));
             }
             else
             {
                 return View(customerViewModel);
             }
-                return RedirectToAction(nameof(CustomerManager));          
+            return RedirectToAction(nameof(CustomerManager));
         }
 
         // GET: CustomerController/Delete/5
@@ -114,6 +112,6 @@ namespace OrderManagmentApp.WEB.Controllers
                 return View();
             }
         }
-        
+
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using OrderManagmentApp.WEB.Services.Validation;
 using System.ComponentModel.DataAnnotations;
-using OrderManagmentApp.WEB.Services.Validation;
+using System.Text.RegularExpressions;
 
 namespace OrderManagmentApp.WEB.Models
 {
@@ -13,13 +10,14 @@ namespace OrderManagmentApp.WEB.Models
         [ScaffoldColumn(true)]
         public int Id { get; set; }
         [Required(ErrorMessage = "Введите Имя клиента")]
-        [Display(Name ="Имя")]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
         [Display(Name = "Адрес")]
-        public string Address { get; set; }        
+        public string Address { get; set; }
+
+        [Required(ErrorMessage = "Введите телефонный номер")]
+        [DataType(DataType.PhoneNumber)]
         
-        [Required(ErrorMessage = "Введите телефонный номер")]        
-        [DataType(DataType.PhoneNumber)]        
         [RegularExpression(@"^\+[0-9]{3}[ /-][0-9]{2}[ -/][0-9]{3}[ /-][0-9]{2}[ -/][0-9]{2}$", ErrorMessage = "+XXX XX XXX XX XX")]
         [Display(Name = "Телефон")]
         public string FirstPhone { get; set; }
@@ -37,15 +35,15 @@ namespace OrderManagmentApp.WEB.Models
 
         [Display(Name = "Название компании")]
         public string CompanyName { get; set; }
-       
+
         [Display(Name = "УНП")]
         public string CompanyTaxPayerId { get; set; }
-        
+
         [Display(Name = "Адрес компании ")]
-        public string CompanyAddress { get; set; }    
-        
+        public string CompanyAddress { get; set; }
+
         [Display(Name = "Номер счета")]
         public string BankAccount { get; set; }
-        
+
     }
 }

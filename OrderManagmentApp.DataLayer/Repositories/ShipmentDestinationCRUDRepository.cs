@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
-    public class ShipmentDestinationCRUDRepository : IGenericCrudRepository<ShipmentDestinationEntity>
+    public class ShipmentDestinationCRUDRepository : IGenericCrudRepository<ShipmentDestination>
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<ShipmentDestinationEntity> _dbSet;
+        private readonly DbSet<ShipmentDestination> _dbSet;
         public ShipmentDestinationCRUDRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<ShipmentDestinationEntity>();
+            _dbSet = _dbContext.Set<ShipmentDestination>();
 
         }
-        public void Add(ShipmentDestinationEntity entity)
+        public void Add(ShipmentDestination entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
@@ -28,13 +27,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new ShipmentDestinationEntity { Id = id });
+            _dbSet.Remove(new ShipmentDestination { Id = id });
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<ShipmentDestinationEntity> GetAllByExpression(IEnumerable<Expression<Func<ShipmentDestinationEntity, bool>>> expressions = null)
+        public IEnumerable<ShipmentDestination> GetAllByExpression(IEnumerable<Expression<Func<ShipmentDestination, bool>>> expressions = null)
         {
-            var managerEntity = new List<ShipmentDestinationEntity>();
+            var managerEntity = new List<ShipmentDestination>();
 
             if (expressions == null)
             {
@@ -47,15 +46,15 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return managerEntity;
         }
 
-        public ShipmentDestinationEntity GetById(int id)
+        public ShipmentDestination GetById(int id)
         {
-            return _dbSet.FirstOrDefault(ent=>ent.Id==id);
+            return _dbSet.FirstOrDefault(ent => ent.Id == id);
         }
 
-        public void Update(ShipmentDestinationEntity entity)
+        public void Update(ShipmentDestination entity)
         {
             _dbSet.Update(entity);
             _dbContext.SaveChanges();
-        }      
+        }
     }
 }

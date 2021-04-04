@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class AgreementEntityConfiguration : IEntityTypeConfiguration<AgreementEntity>
+    public class AgreementEntityConfiguration : IEntityTypeConfiguration<Agreement>
     {
-        public void Configure(EntityTypeBuilder<AgreementEntity> builder)
-        {            
+        public void Configure(EntityTypeBuilder<Agreement> builder)
+        {
             builder.Property(x => x.CreateDate).HasDefaultValueSql("getdate()");
             builder
                 .Property(agreement => agreement.Sum)
                 .HasColumnType("money");
-            //builder
-            //    .HasOne(agreement => agreement.Order)
-            //    .WithOne(ord => ord.CurrentAgreement)
-            //    .HasForeignKey<OrderEntity>(ord => ord.CurrentAgreementID);
-            
         }
     }
 }

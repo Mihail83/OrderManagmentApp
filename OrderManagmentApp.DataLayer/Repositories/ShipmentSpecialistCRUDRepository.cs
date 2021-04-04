@@ -1,26 +1,25 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
-using OrderManagmentApp.DataLayer.EF;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
-    public class ShipmentSpecialistCRUDRepository : IGenericCrudRepository<ShipmentSpecialistEntity>
+    public class ShipmentSpecialistCRUDRepository : IGenericCrudRepository<ShipmentSpecialist>
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<ShipmentSpecialistEntity> _dbSet;
+        private readonly DbSet<ShipmentSpecialist> _dbSet;
         public ShipmentSpecialistCRUDRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<ShipmentSpecialistEntity>();
+            _dbSet = _dbContext.Set<ShipmentSpecialist>();
 
         }
-        public void Add(ShipmentSpecialistEntity entity)
+        public void Add(ShipmentSpecialist entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
@@ -28,13 +27,13 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new ShipmentSpecialistEntity { Id = id });
+            _dbSet.Remove(new ShipmentSpecialist { Id = id });
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<ShipmentSpecialistEntity> GetAllByExpression(IEnumerable<Expression<Func<ShipmentSpecialistEntity, bool>>> expressions = null)
+        public IEnumerable<ShipmentSpecialist> GetAllByExpression(IEnumerable<Expression<Func<ShipmentSpecialist, bool>>> expressions = null)
         {
-            var managerEntity = new List<ShipmentSpecialistEntity>();
+            var managerEntity = new List<ShipmentSpecialist>();
 
             if (expressions == null)
             {
@@ -47,12 +46,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return managerEntity;
         }
 
-        public ShipmentSpecialistEntity GetById(int id)
+        public ShipmentSpecialist GetById(int id)
         {
             return _dbSet.FirstOrDefault(ent => ent.Id == id);
-        }    
+        }
 
-        public void Update(ShipmentSpecialistEntity entity)
+        public void Update(ShipmentSpecialist entity)
         {
             _dbSet.Update(entity);
             _dbContext.SaveChanges();

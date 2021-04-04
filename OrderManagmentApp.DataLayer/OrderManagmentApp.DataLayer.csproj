@@ -15,4 +15,13 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OrderManagmentApp.BusinessLogic\OrderManagmentApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\OrderManagmentApp.Infrastructure\OrderManagmentApp.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>
