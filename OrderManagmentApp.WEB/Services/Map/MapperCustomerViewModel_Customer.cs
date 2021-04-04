@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OrderManagmentApp.BusinessLogic.Interfaces;
+﻿using OrderManagmentApp.BusinessLogic.Interfaces;
 using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.WEB.Models;
+using System;
 
 namespace OrderManagmentApp.WEB.Services.Map
 {
@@ -18,16 +15,26 @@ namespace OrderManagmentApp.WEB.Services.Map
                 AdditionalInfo = model.AdditionalInfo,
                 Address = model.Address,
                 Emeil = model.Emeil,
-                Name = model.Name,
-                FirstPhone = model.FirstPhone,
-                SecondPhone = model.SecondPhone,
-                ThirdPhone = model.ThirdPhone
-            };              
-                customer.CompanyName = model.CompanyName ?? String.Empty;
-                customer.CompanyAddress = model.CompanyAddress ?? String.Empty;
-                customer.CompanyTaxPayerId = model.CompanyTaxPayerId ?? String.Empty;               
-                customer.BankAccount = model.BankAccount ?? String.Empty;
+                Name = model.Name                
+            };
             
+                customer.Company = new Company
+                {
+                    Name = model.CompanyName ?? String.Empty,
+                    Address = model.CompanyAddress ?? String.Empty,
+                    TaxPayerId = model.CompanyTaxPayerId ?? String.Empty,
+                    BankAccount = model.BankAccount ?? String.Empty
+                };
+            customer.Phones.Add(model.FirstPhone);
+            customer.Phones.Add(model.SecondPhone ?? string.Empty);
+            customer.Phones.Add(model.ThirdPhone ?? string.Empty); 
+
+
+
+
+
+
+
             return customer;
         }
     }

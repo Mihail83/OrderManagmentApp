@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<OrderViewModel>
 @using OrderManagmentApp.WEB.Models;
+@using OrderManagmentApp.Infrastructure;
 @{
     ViewData["Title"] = "MAIN PAGE";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,7 +38,7 @@
                     <td>@order.Good</td>
                     <td>@order.ContractSum</td>
                     <td>@order.AdditionalInfo</td>
-                    <td>@order.OrderState</td>
+                    <td>@order.OrderState.GetDisplayName()</td>
                     <td>@order.ShipmentSpecialist</td>
                     <td>@order.ShipmentDestination</td>
                     <td>@order.Manager</td>

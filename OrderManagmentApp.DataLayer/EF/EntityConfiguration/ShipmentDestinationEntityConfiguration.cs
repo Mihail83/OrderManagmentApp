@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class ShipmentDestinationEntityConfiguration : IEntityTypeConfiguration<ShipmentDestinationEntity>
+    public class ShipmentDestinationEntityConfiguration : IEntityTypeConfiguration<ShipmentDestination>
     {
-        public void Configure(EntityTypeBuilder<ShipmentDestinationEntity> builder)
+        public void Configure(EntityTypeBuilder<ShipmentDestination> builder)
         {
             builder.HasKey(i => i.Id);
             builder.HasIndex(sp => sp.Destination).IsUnique();

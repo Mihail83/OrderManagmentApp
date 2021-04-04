@@ -1,39 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OrderManagmentApp.DataLayer.Interfaces;
-using OrderManagmentApp.DataLayer.EntityModels;
-using System.Linq.Expressions;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderManagmentApp.DataLayer.EF;
+using OrderManagmentApp.BusinessLogic.Models;
+using OrderManagmentApp.BusinessLogic.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
     class OrderInFactoryRepository : IOrderInFactoryRepository
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<OrderInFactoryEntity> _dbSet;
+        private readonly DbSet<OrderInFactory> _dbSet;
 
         public OrderInFactoryRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
-            _dbSet = _dbContext.Set<OrderInFactoryEntity>();
+            _dbSet = _dbContext.Set<OrderInFactory>();
 
         }
 
-        public OrderInFactoryEntity GetById(int id)
+        public OrderInFactory GetById(int id)
         {
             return _dbSet.FirstOrDefault(ord => ord.ID == id);
 
         }
-        public void Add(OrderInFactoryEntity entity)
+        public void Add(OrderInFactory entity)
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
         }
 
-        public void AddRange(IEnumerable<OrderInFactoryEntity> entities)
+        public void AddRange(IEnumerable<OrderInFactory> entities)
         {
             _dbSet.AddRange(entities);
             _dbContext.SaveChanges();
@@ -41,11 +38,11 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public void Delete(int id)
         {
-            _dbSet.Remove(new OrderInFactoryEntity { ID = id });
+            _dbSet.Remove(new OrderInFactory { ID = id });
             _dbContext.SaveChanges();
         }
-       
 
-        
+
+
     }
 }

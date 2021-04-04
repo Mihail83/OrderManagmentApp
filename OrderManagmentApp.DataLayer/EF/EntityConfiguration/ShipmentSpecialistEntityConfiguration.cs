@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderManagmentApp.DataLayer.EntityModels;
+using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
 {
-    public class ShipmentSpecialistEntityConfiguration : IEntityTypeConfiguration<ShipmentSpecialistEntity>
+    public class ShipmentSpecialistEntityConfiguration : IEntityTypeConfiguration<ShipmentSpecialist>
     {
-        public void Configure(EntityTypeBuilder<ShipmentSpecialistEntity> builder)
-        {             
+        public void Configure(EntityTypeBuilder<ShipmentSpecialist> builder)
+        {
             builder.HasKey(i => i.Id);
-            builder.HasIndex(sp=>sp.Specialist).IsUnique();
+            builder.HasIndex(sp => sp.Specialist).IsUnique();
         }
     }
 }
