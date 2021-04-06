@@ -59,9 +59,11 @@ namespace OrderManagmentApp.WEB.Controllers
             if (ModelState.IsValid)
             {
                 _orderService.SaveOrder(_mapperToOrder.Map(model));
-
+                return RedirectToAction(nameof(OrderManager));
             }
+            SetSelectListToViewBag();
             return View();
+            
         }
 
         private void SetSelectListToViewBag()
@@ -69,20 +71,20 @@ namespace OrderManagmentApp.WEB.Controllers
             var managers = _managerService.GetManagers();
             if (managers != null)
             {
-                var managerList = new SelectList(managers, "Name", "Name");
+                var managerList = new SelectList(managers, "Id", "Name");
                 ViewBag.managers = managerList;
             }
 
             var shipSpecialists = _shipmentSpecialistService.GetShipmentSpecialists();
             if (shipSpecialists != null)
             {
-                var shipSpecialistsList = new SelectList(shipSpecialists, "Specialist", "Specialist");
+                var shipSpecialistsList = new SelectList(shipSpecialists, "Id", "Specialist");
                 ViewBag.shipmentSpecialists = shipSpecialistsList;
             }
             var shipDestinations = _shipmentDestinationService.GetShipmentDestinations();
             if (shipDestinations != null)
             {
-                ViewBag.shipDest = new SelectList(shipDestinations, "Destination", "Destination");
+                ViewBag.shipDest = new SelectList(shipDestinations, "Id", "Destination");
                 //ViewBag.shipDest= shipDestinationsList;
             }
         }

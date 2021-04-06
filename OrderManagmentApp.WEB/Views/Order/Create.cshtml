@@ -49,8 +49,8 @@
                 </div>
          
                 <div class="form-group">
-                    <label asp-for="Manager" class="control-label"></label>
-                    <select class="form-control" asp-for="Manager" asp-items="ViewBag.managers">
+                    <label asp-for="ManagerId" class="control-label"></label>
+                    <select class="form-control" asp-for="ManagerId" asp-items="ViewBag.managers">
                         <option disabled selected>--- SELECT ---</option>
                     </select>                    
                 </div>
@@ -72,21 +72,24 @@
                     <input asp-for="AdditionalInfo" class="form-control" />
                     <span asp-validation-for="AdditionalInfo" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="ShipmentSpecialist" class="control-label"></label>
-                    <select class="form-control" asp-for="ShipmentSpecialist" asp-items="ViewBag.shipmentSpecialists">
+                    <label asp-for="ShipmentSpecialistId" class="control-label"></label>
+                    <select class="form-control" asp-for="ShipmentSpecialistId" asp-items="ViewBag.shipmentSpecialists">
                         <option disabled selected>--- SELECT ---</option>
                     </select>
-                    <span asp-validation-for="ShipmentSpecialist" class="text-danger"></span>
+                    <input id="ShipmentSpecialistId" type="hidden" asp-for="ShipmentSpecialistId" class="form-control" />                    
                 </div>
-                <!-- -->
+                
                 <div class="form-group">
-                    <label asp-for="ShipmentDestination" class="control-label"></label>
-                    <select class="form-control" asp-for="ShipmentDestination" asp-items="ViewBag.shipDest">
+                    <label asp-for="ShipmentDestinationId" class="control-label"></label>
+                    <select class="form-control" asp-for="ShipmentDestinationId" asp-items="ViewBag.shipDest">
                         <option disabled selected>--- SELECT ---</option>
                     </select>
+                    
                     <span asp-validation-for="ShipmentDestination" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="OrderInFactory_StateOfShipment" class="control-label"></label>
                     <input asp-for="OrderInFactory_StateOfShipment" class="form-control" />
