@@ -25,7 +25,7 @@ namespace OrderManagmentApp.WEB.Services.Map
                     TaxPayerId = model.CompanyTaxPayerId ?? String.Empty,
                     BankAccount = model.BankAccount ?? String.Empty
                 };
-            customer.Phones.Add(model.FirstPhone);
+            customer.Phones = new System.Collections.Generic.List<string> { model.FirstPhone };
             customer.Phones.Add(model.SecondPhone ?? string.Empty);
             customer.Phones.Add(model.ThirdPhone ?? string.Empty); 
 

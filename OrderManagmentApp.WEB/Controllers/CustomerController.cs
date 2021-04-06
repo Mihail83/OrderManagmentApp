@@ -51,7 +51,7 @@ namespace OrderManagmentApp.WEB.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create
             (
             
@@ -60,7 +60,7 @@ namespace OrderManagmentApp.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _customerService.SaveNewCustomer(_mapperToBysinessModel.Map(customerViewModel));
+                _customerService.SaveCustomer(_mapperToBysinessModel.Map(customerViewModel));
             }
             else
             {
@@ -83,7 +83,7 @@ namespace OrderManagmentApp.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _customerService.SaveEditedCustomer(_mapperToBysinessModel.Map(customerViewModel));
+                _customerService.UpdateCustomer(_mapperToBysinessModel.Map(customerViewModel));
             }
             else
             {
