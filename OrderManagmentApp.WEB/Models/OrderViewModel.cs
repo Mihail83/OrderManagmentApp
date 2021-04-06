@@ -37,13 +37,22 @@ namespace OrderManagmentApp.WEB.Models
         public string AdditionalInfo { get; set; }
         [Display(Name = "Статус")]
         public OrderState OrderState { get; set; }
+
+        public int? ShipmentSpecialistId { get; set; }
+
         [Display(Name = "Кто отгружает")]
         public string ShipmentSpecialist { get; set; }
+
+        public int? ShipmentDestinationId { get; set; }
+
         [Display(Name = "Отгрузка в")]
         public string ShipmentDestination { get; set; }
         [Required]
+        public int ManagerId { get; set; }
+        
         [Display(Name = "Менеджер")]
         public string Manager { get; set; }
+
         [Display(Name = "Статус Алютех")]
         public string OrderInFactory_StateOfShipment { get; set; }
         [UIHint("Boolean")]

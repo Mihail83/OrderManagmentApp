@@ -17,10 +17,13 @@ namespace OrderManagmentApp.WEB.Services.Map
                 Advance = model.Advance,
                 CustomerId = model.CustomerId,
                 IsArchived = model.IsArchived,
-                Manager = new Manager { Name = model.Manager },
+                ManagerId = model.ManagerId,
+                //Manager = new Manager { Name = model.Manager },
                 OrderState = model.OrderState,
-                ShipmentDestination = new ShipmentDestination { Destination = model.ShipmentDestination ?? string.Empty },
-                ShipmentSpecialist = new ShipmentSpecialist { Specialist = model.ShipmentSpecialist ?? string.Empty }                
+                ShipmentDestinationId = model.ShipmentSpecialistId,  //  how to remove field?
+                ShipmentSpecialistId = model.ShipmentDestinationId,
+                //ShipmentDestination = new ShipmentDestination { Destination = model.ShipmentDestination ?? string.Empty },
+                //ShipmentSpecialist = new ShipmentSpecialist { Specialist = model.ShipmentSpecialist ?? string.Empty }                
             };
 
             if (model.CurrentAgreementId==null)

@@ -18,8 +18,11 @@ namespace OrderManagmentApp.BusinessLogic.Models
         public decimal Advance { get; set; }       
         public string AdditionalInfo { get; set; }
         public OrderState OrderState { get; set; }
+        public int? ShipmentSpecialistId { get; set; }
         public ShipmentSpecialist ShipmentSpecialist { get; set; }
+        public int? ShipmentDestinationId { get; set; }
         public ShipmentDestination ShipmentDestination { get; set; }
+        public int ManagerId { get; set; }
         public Manager Manager { get; set; }
         public OrderInFactory OrderInFactory { get; set; }
         public bool IsArchived { get; set; }

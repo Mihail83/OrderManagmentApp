@@ -14,7 +14,7 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
             builder
                 .Property(order => order.Id).ValueGeneratedNever();
             builder
-                 .Property(order => order.DateOfCreating).HasDefaultValue(DateTime.Today);
+                 .Property(order => order.DateOfCreating).HasDefaultValueSql("getdate()"); ;
             builder
                 .HasOne(order => order.Customer)
                 .WithMany(c => c.Orders)
@@ -39,17 +39,17 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
             builder
                 .HasOne(order => order.ShipmentSpecialist)
                 .WithMany(sse => sse.Orders)
-                //.HasForeignKey(order => order.ShipmentSpecialist)
+                .HasForeignKey(order => order.ShipmentSpecialistId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
             builder
                .HasOne(order => order.ShipmentDestination)
                .WithMany(shipmentDest => shipmentDest.Orders)
-               //.HasForeignKey(order => order.ShipmentDestinationId)
+               .HasForeignKey(order => order.ShipmentDestinationId)
                .OnDelete(DeleteBehavior.ClientNoAction);
             builder
                 .HasOne(order => order.Manager)
                 .WithMany(manager => manager.OrderEntities)
-                //.HasForeignKey(order => order.ManagerId)
+                .HasForeignKey(order => order.ManagerId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
 
             builder
@@ -57,11 +57,6 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
                 .WithOne(orderAl => orderAl.Order)
                 .HasForeignKey<OrderInFactory>(orderAL => orderAL.OrderId)
                 .OnDelete(DeleteBehavior.ClientNoAction);
-            //builder
-            //    .HasOne(order => order.CurrentAgreement)
-            //    .WithOne(agr => agr.Order)
-            //    .HasForeignKey<AgreementEntity>(agreement => agreement.OrderId);
-
         }
     }
 }
