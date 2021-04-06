@@ -33,6 +33,7 @@ namespace OrderManagmentApp.WEB
             //services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
 
             services.AddScoped<IMapper<Order, OrderViewModel>, MapperOrderTo_OrderViewModel>();
+            services.AddScoped<IMapper<OrderViewModel, Order>, MapperOrderViewModelToOrder>();
 
             services.AddScoped<IMapper<Customer, CustomerViewModel>, MapperCustomer_CustomerViewModel>();
             services.AddScoped<IMapper<CustomerViewModel, Customer>, MapperCustomerViewModel_Customer>();
@@ -66,7 +67,7 @@ namespace OrderManagmentApp.WEB
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Main}/{action=MainPage}/{id?}");
+                    pattern: "{controller=Order}/{action=OrderManager}/{id?}");
             });
         }
     }

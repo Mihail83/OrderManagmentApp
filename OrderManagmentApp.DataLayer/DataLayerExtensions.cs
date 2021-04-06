@@ -17,6 +17,7 @@ namespace OrderManagmentApp.DataLayer
             services.AddScoped<IGenericCrudRepository<Manager>, ManagerCRUDRepository>();
             services.AddScoped<IGenericCrudRepository<ShipmentDestination>, ShipmentDestinationCRUDRepository>();
             services.AddScoped<IGenericCrudRepository<ShipmentSpecialist>, ShipmentSpecialistCRUDRepository>();
+            services.AddScoped<IOrderAgreementRepository, OrderAgreementRepository>();           
 
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();

@@ -30,12 +30,13 @@ namespace OrderManagmentApp.WEB.Services.Map
             {
                 var builder = new StringBuilder();
                 builder.Append(model.OrderAgreement.Agreement.Id);
-                builder.Append("-");
-                builder.Append(model.OrderAgreement.Agreement.CreateDate.Date);
+                builder.Append(@"/");
+                builder.Append(model.OrderAgreement.Agreement.CreateDate.Year);
                 orderViewModel.CurrentAgreement = builder.ToString();
 
                 orderViewModel.Good = model.OrderAgreement.Agreement.Good;
                 orderViewModel.ContractSum = model.OrderAgreement.Agreement.Sum;
+                orderViewModel.CurrentAgreementId = model.OrderAgreement.Agreement.Id;
             }
             else
             {

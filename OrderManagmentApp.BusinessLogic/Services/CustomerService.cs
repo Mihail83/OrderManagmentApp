@@ -15,7 +15,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
             _customerRepository = customerRepository;
         }
 
-        public void SaveNewCustomer(Customer customer)
+        public void SaveCustomer(Customer customer)
         {           
             _customerRepository.Add(customer);
         }
@@ -26,7 +26,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
             return customers;
         }
 
-        public void SaveEditedCustomer(Customer customer)
+        public void UpdateCustomer(Customer customer)
         {           
             _customerRepository.Update(customer);
         }

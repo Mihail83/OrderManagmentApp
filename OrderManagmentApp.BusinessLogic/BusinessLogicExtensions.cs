@@ -10,10 +10,14 @@ namespace OrderManagmentApp.BusinessLogic
 {
     public static class BusinessLogicExtensions
     {
-        public static IServiceCollection AddBusinessLogicService(this IServiceCollection services)
+        public static IServiceCollection AddBusinessLogicService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<OrderService>();            
             services.AddScoped<CustomerService>();
+
+            services.AddScoped<ManagerService>();
+            services.AddScoped<ShipmentSpecialistService>();
+            services.AddScoped<ShipmentDestinationService>();
 
             return services;
         }
