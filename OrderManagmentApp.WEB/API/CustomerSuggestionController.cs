@@ -13,7 +13,7 @@ namespace OrderManagmentApp.WEB.API
     [ApiController]
     public class CustomerSuggestionController : Controller
     {
-        private OrderManagmentAppContext _appContext;
+        private readonly OrderManagmentAppContext _appContext;
         public CustomerSuggestionController(OrderManagmentAppContext appContext) 
         {
             _appContext = appContext;

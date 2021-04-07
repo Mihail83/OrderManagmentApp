@@ -14,10 +14,12 @@ namespace OrderManagmentApp.BusinessLogic
         {
             services.AddScoped<OrderService>();            
             services.AddScoped<CustomerService>();
+            services.AddScoped<AgreementService>();
 
             services.AddScoped<ManagerService>();
             services.AddScoped<ShipmentSpecialistService>();
             services.AddScoped<ShipmentDestinationService>();
+            
 
             return services;
         }

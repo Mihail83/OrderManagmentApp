@@ -9,12 +9,12 @@ using System.Linq.Expressions;
 
 namespace OrderManagmentApp.DataLayer.Repositories
 {
-    public class TreatyRepository : ITreatyRepository
+    public class AgreementRepository : IAgreementRepository
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<Agreement> _dbSet;
 
-        public TreatyRepository(OrderManagmentAppContext context)
+        public AgreementRepository(OrderManagmentAppContext context)
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<Agreement>();
@@ -34,22 +34,22 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public IEnumerable<Agreement> GetAllByExpression(IEnumerable<Expression<Func<Agreement, bool>>> expressions = null)
         {
-            var managerEntity = new List<Agreement>();
+            var Entities = new List<Agreement>();
 
             if (expressions == null)
             {
-                managerEntity.AddRange(_dbSet.AsNoTracking());
+                Entities.AddRange(_dbSet.Include("Customer").Include("OrderAgreement").AsNoTracking());
             }
             else
             {
                 throw new NotImplementedException(GetType().ToString());
             }
-            return managerEntity;
+            return Entities;
         }
 
         public Agreement GetById(int id)
         {
-            return _dbSet.FirstOrDefault(treaty => treaty.Id == id);
+            return _dbSet.Include("Customer").Include("OrderAgreement").FirstOrDefault(treaty => treaty.Id == id);
         }
 
         public void Update(Agreement entity)

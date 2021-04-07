@@ -19,7 +19,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
         public List<Manager> GetManagers(IEnumerable<Expression<Func<Manager, bool>>> expressions = null)
         {
             var managers =  _managerRepository.GetAllByExpression(expressions);
-            List<Manager> result = managers == null ? null : new List<Manager>(managers);
+            List<Manager> result = managers == null ? null : new List<Manager>(managers);    // need List???? or Enumerable
             return result;        
         }
 
