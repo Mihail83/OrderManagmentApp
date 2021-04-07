@@ -3,7 +3,7 @@ using OrderManagmentApp.BusinessLogic.Models;
 
 namespace OrderManagmentApp.BusinessLogic.Interfaces
 {
-    public interface ITreatyRepository : IGenericCrudRepository<Agreement>
+    public interface IAgreementRepository : IGenericCrudRepository<Agreement>
     {
 
     }

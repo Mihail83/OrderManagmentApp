@@ -21,7 +21,7 @@ namespace OrderManagmentApp.DataLayer
 
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<ITreatyRepository, TreatyRepository>();
+            services.AddScoped<IAgreementRepository, AgreementRepository>();
             services.AddScoped<IOrderInFactoryRepository, OrderInFactoryRepository>();
 
 

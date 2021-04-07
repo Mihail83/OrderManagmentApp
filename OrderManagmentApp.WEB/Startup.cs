@@ -38,6 +38,8 @@ namespace OrderManagmentApp.WEB
             services.AddScoped<IMapper<Customer, CustomerViewModel>, MapperCustomer_CustomerViewModel>();
             services.AddScoped<IMapper<CustomerViewModel, Customer>, MapperCustomerViewModel_Customer>();
 
+            services.AddScoped<IMapper<Agreement, AgreementViewModel>, MapperAgreementToAgreementViewModel>();
+            services.AddScoped<IMapper<AgreementViewModel, Agreement>, MapperAgreementViewModelToAgreement>();
 
             services.AddScoped<OrderService>();
 
