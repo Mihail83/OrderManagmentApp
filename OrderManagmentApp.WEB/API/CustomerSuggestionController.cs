@@ -21,13 +21,13 @@ namespace OrderManagmentApp.WEB.API
        
 
         [Produces("application/json")]
-        [HttpPost]
+        [HttpGet]
         [Route("api/CustomerSuggestion")]
-        public  JsonResult Search(string _prefix)
+        public  JsonResult Search(string prefix)
         {
-            string term = HttpContext.Request.Query["prefix"].ToString();
+            //string term = HttpContext.Request.Query["prefix"].ToString();
             var names = _appContext.Customers
-                .Where(p => p.Name.StartsWith(term))
+                .Where(p => p.Name.StartsWith(prefix))
                 .Select(customer => new { label = customer.Name,val = customer.Id  })
                 .ToList();
             return Json(names);

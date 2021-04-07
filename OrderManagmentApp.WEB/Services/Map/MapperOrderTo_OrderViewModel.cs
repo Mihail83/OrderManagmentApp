@@ -15,14 +15,15 @@ namespace OrderManagmentApp.WEB.Services.Map
                 Id = model.Id,
                 DateOfCreating = model.DateOfCreating,
                 CustomerId = model.CustomerId,
-                CustomerName = model.Customer.Name,
+                CustomerName = model.Customer?.Name,
                 Advance = model.Advance,
                 AdditionalInfo = model.AdditionalInfo,
                 ShipmentSpecialistId = model.ShipmentSpecialistId,
                 ShipmentSpecialist = model.ShipmentSpecialist?.Specialist,
-                ShipmentDestinationId = model.ShipmentDestinationId,                
+                ShipmentDestinationId = model.ShipmentDestinationId,
                 ShipmentDestination = model.ShipmentDestination?.Destination,
-                Manager = model.Manager.Name,
+                ManagerId = model.ManagerId,
+                Manager = model.Manager?.Name,
                 OrderInFactory_StateOfShipment = model.OrderInFactory?.StateOfShipment,
                 OrderState = model.OrderState
             };

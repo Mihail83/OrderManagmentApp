@@ -71,7 +71,10 @@ namespace OrderManagmentApp.DataLayer.Repositories
 
         public Order GetById(int id)
         {
-            return _dbSet.FirstOrDefault(order => order.Id == id);
+            return _dbSet.Include(order => order.Customer)
+                .Include(order => order.OrderAgreement)
+                    .ThenInclude(ordAgr => ordAgr.Agreement)
+                .FirstOrDefault(order => order.Id == id);
         }
 
         public void Update(Order entity)
