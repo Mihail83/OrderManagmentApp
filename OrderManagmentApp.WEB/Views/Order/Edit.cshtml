@@ -1,0 +1,127 @@
+﻿@model OrderManagmentApp.WEB.Models.OrderViewModel;
+@using OrderManagmentApp.Infrastructure.Enums;
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h4>Редактировать</h4>
+<hr />
+<div class="row">
+    
+        <form class="col-md-8 form-row" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input disabled asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfCreating" class="control-label"></label>
+                    <input disabled asp-for="DateOfCreating" class="form-control" />
+                    <span asp-validation-for="DateOfCreating" class="text-danger"></span>
+                </div>
+                <div hidden class="form-group" >
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    <input asp-for="CustomerId" class="form-control" />
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerName" class="control-label"></label>
+                    <input asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentAgreement" class="control-label"></label>
+                    <input asp-for="CurrentAgreement" class="form-control" />
+                    <span asp-validation-for="CurrentAgreement" class="text-danger"></span>
+                </div>
+                <div hidden class="form-group hide">
+                    <label asp-for="CurrentAgreementId" class="control-label"></label>
+                    <input asp-for="CurrentAgreementId" class="form-control" />
+                    <span asp-validation-for="CurrentAgreementId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Good" class="control-label"></label>
+                    <input asp-for="Good" class="form-control" />
+                    <span asp-validation-for="Good" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="ContractSum" class="control-label"></label>
+                    <input asp-for="ContractSum" class="form-control" />
+                    <span asp-validation-for="ContractSum" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Advance" class="control-label"></label>
+                    <input asp-for="Advance" class="form-control" />
+                    <span asp-validation-for="Advance" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdditionalInfo" class="control-label"></label>
+                    <input asp-for="AdditionalInfo" class="form-control" />
+                    <span asp-validation-for="AdditionalInfo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderState" class="control-label"></label>
+                    <select class="form-control" asp-for="OrderState" asp-items="Html.GetEnumSelectList<OrderState>()"></select>
+                    <span asp-validation-for="OrderState" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ShipmentSpecialistId" class="control-label"></label>
+                    <select class="form-control" asp-for="ShipmentSpecialistId" asp-items="ViewBag.shipmentSpecialists">
+                        <option  >--- SELECT ---</option>
+                    </select>
+                    <input id="ShipmentSpecialistId" type="hidden" asp-for="ShipmentSpecialistId" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ShipmentDestinationId" class="control-label"></label>
+                    <select class="form-control" asp-for="ShipmentDestinationId" asp-items="ViewBag.shipDest">
+                        <option  >--- SELECT ---</option>
+                    </select>
+                    <span asp-validation-for="ShipmentDestination" class="text-danger"></span>
+                </div>
+              
+                <div class="form-group">
+                    <label asp-for="ManagerId" class="control-label"></label>
+                   
+                    <select class="form-control" asp-for="ManagerId" asp-items="ViewBag.managers">
+                        <option  >--- SELECT ---</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderInFactory_StateOfShipment" class="control-label"></label>
+                    <input asp-for="OrderInFactory_StateOfShipment" class="form-control" />
+                    <span asp-validation-for="OrderInFactory_StateOfShipment" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsArchived" /> @Html.DisplayNameFor(model => model.IsArchived)
+                    </label>
+                </div>
+
+
+            </div>
+
+            
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    
+</div>
+
+<div>
+    <a asp-action="OrderManager">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

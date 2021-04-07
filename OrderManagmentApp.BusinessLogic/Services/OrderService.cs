@@ -37,5 +37,23 @@ namespace OrderManagmentApp.BusinessLogic.Services
                 _orderAgreementRepository.Add(tempOrderAgreement);
             }
         }
+
+        public void UpdateOrder(Order newOrder)
+        {
+            var tempOrderAgreement = newOrder.OrderAgreement;
+            newOrder.OrderAgreement = null;
+
+            _orderRepository.Update(newOrder);
+
+            if (tempOrderAgreement != null)
+            {
+                _orderAgreementRepository.Add(tempOrderAgreement);
+            }
+        }
+
+        public Order GetOrderById(int id)
+        {
+            return _orderRepository.GetById(id);
+        }
     }
 }

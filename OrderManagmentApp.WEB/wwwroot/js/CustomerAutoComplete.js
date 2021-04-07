@@ -4,7 +4,7 @@
             $.ajax({
                 url: '/api/customersuggestion',
                 data: { "prefix": request.term },
-                type: "POST",
+                type: "GET",
                 success: function (data) {
                     response($.map(data, function (item) {
                         return item;
@@ -20,6 +20,7 @@
         },
         select: function (e, i) {
             $("#Customerid").val(i.item.val);
+
         },
         minLength: 2
     });

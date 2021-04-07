@@ -27,10 +27,10 @@ namespace OrderManagmentApp.WEB.Models
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 200 символов")]
         [Display(Name = "Товар")]
         public string Good { get; set; }
-        [DataType(DataType.Currency)]
+        //[DataType(DataType.Currency)]
         [Display(Name = "Сумма контракта")]
         public decimal ContractSum { get; set; }
-        [DataType(DataType.Currency)]
+        //[DataType(DataType.Currency)]
         [Display(Name = "Аванс")]
         public decimal Advance { get; set; }
         [Display(Name = "Комментарий")]

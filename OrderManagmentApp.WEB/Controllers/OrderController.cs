@@ -66,7 +66,40 @@ namespace OrderManagmentApp.WEB.Controllers
             
         }
 
-        private void SetSelectListToViewBag()
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var order = _orderService.GetOrderById(id);
+            SetSelectListToViewBag();
+            if (order == null)
+            {
+                return RedirectToAction(nameof(Create));
+
+            }
+
+            return View(_mapperToViewModel.Map(order));
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(OrderViewModel orderViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _orderService.UpdateOrder(_mapperToOrder.Map(orderViewModel));
+                return RedirectToAction(nameof(OrderManager));
+            }
+            else
+            {
+                SetSelectListToViewBag();  
+                return View();
+            }
+
+            
+        }
+
+        private void SetSelectListToViewBag()  //???  какие модели использую на WEB  ???
         {
             var managers = _managerService.GetManagers();
             if (managers != null)
@@ -84,8 +117,7 @@ namespace OrderManagmentApp.WEB.Controllers
             var shipDestinations = _shipmentDestinationService.GetShipmentDestinations();
             if (shipDestinations != null)
             {
-                ViewBag.shipDest = new SelectList(shipDestinations, "Id", "Destination");
-                //ViewBag.shipDest= shipDestinationsList;
+                ViewBag.shipDest = new SelectList(shipDestinations, "Id", "Destination");                
             }
         }
     }
