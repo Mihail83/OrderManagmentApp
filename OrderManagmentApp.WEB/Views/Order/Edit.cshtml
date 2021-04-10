@@ -7,29 +7,28 @@
 
 <h4>Редактировать</h4>
 <hr />
-<div class="row">
-    
+<div class="row">    
         <form class="col-md-8 form-row" asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger col-md-12"></div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label asp-for="Id" class="control-label"></label>
-                    <input disabled asp-for="Id" class="form-control" />
+                    <input readonly asp-for="Id" class="form-control" />
                     <span asp-validation-for="Id" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateOfCreating" class="control-label"></label>
-                    <input disabled asp-for="DateOfCreating" class="form-control" />
+                    <input readonly asp-for="DateOfCreating" class="form-control" />
                     <span asp-validation-for="DateOfCreating" class="text-danger"></span>
                 </div>
-                <div hidden class="form-group" >
+                <div class="form-group" >
                     <label asp-for="CustomerId" class="control-label"></label>
-                    <input asp-for="CustomerId" class="form-control" />
+                    <input readonly asp-for="CustomerId" class="form-control" />
                     <span asp-validation-for="CustomerId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CustomerName" class="control-label"></label>
-                    <input asp-for="CustomerName" class="form-control" />
+                    <input readonly asp-for="CustomerName" class="form-control" />
                     <span asp-validation-for="CustomerName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -52,12 +51,12 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label asp-for="ContractSum" class="control-label"></label>
-                    <input asp-for="ContractSum" class="form-control" />
+                    <input id="ContractSum" asp-for="ContractSum" class="form-control no-number-validation" />
                     <span asp-validation-for="ContractSum" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Advance" class="control-label"></label>
-                    <input asp-for="Advance" class="form-control" />
+                    <input id="Advance" asp-for="Advance" class="form-control no-number-validation" />
                     <span asp-validation-for="Advance" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -74,7 +73,7 @@
                 <div class="form-group">
                     <label asp-for="ShipmentSpecialistId" class="control-label"></label>
                     <select class="form-control" asp-for="ShipmentSpecialistId" asp-items="ViewBag.shipmentSpecialists">
-                        <option  >--- SELECT ---</option>
+                        <option value="" >--- SELECT ---</option>
                     </select>
                     <input id="ShipmentSpecialistId" type="hidden" asp-for="ShipmentSpecialistId" class="form-control" />
                 </div>
@@ -82,7 +81,7 @@
                 <div class="form-group">
                     <label asp-for="ShipmentDestinationId" class="control-label"></label>
                     <select class="form-control" asp-for="ShipmentDestinationId" asp-items="ViewBag.shipDest">
-                        <option  >--- SELECT ---</option>
+                        <option value="" >--- SELECT ---</option>
                     </select>
                     <span asp-validation-for="ShipmentDestination" class="text-danger"></span>
                 </div>
@@ -123,5 +122,8 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{  await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("~/Views/Shared/PartialViewWithScript/OrderEditPart.cshtml");
+        }
 }
+

@@ -25,3 +25,8 @@
         minLength: 2
     });
 });
+
+$(document).ready(function () {
+    $("#Sum").rules("remove", "number");    
+});
+

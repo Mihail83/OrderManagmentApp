@@ -14,7 +14,7 @@ namespace OrderManagmentApp.WEB.Services.Map
             {
                 Id = model.Id,
                 AdditionalInfo = model.AdditionalInfo ?? string.Empty,
-                Advance = model.Advance,
+                Advance = model.Advance ?? 0,
                 CustomerId = model.CustomerId,
                 IsArchived = model.IsArchived,
                 ManagerId = model.ManagerId,
@@ -28,7 +28,7 @@ namespace OrderManagmentApp.WEB.Services.Map
 
             if (model.CurrentAgreementId==null)
             {
-                order.ContractSum = model.ContractSum;
+                order.ContractSum = model.ContractSum ?? 0;
                 order.Good = model.Good;
             }
             else

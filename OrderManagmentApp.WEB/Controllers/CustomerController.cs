@@ -40,10 +40,10 @@ namespace OrderManagmentApp.WEB.Controllers
             return View(customerViewModels);
         }
 
-        ActionResult Details(int id)
-        {
-            return View();
-        }
+        //ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         public ActionResult Create()
         {

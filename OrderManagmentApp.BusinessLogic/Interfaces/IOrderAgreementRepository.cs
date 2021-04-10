@@ -12,5 +12,6 @@ namespace OrderManagmentApp.BusinessLogic.Interfaces
         public void Add(OrderAgreement entity);
         public void Update(OrderAgreement entity);
         public void Delete(OrderAgreement entity);
+        public OrderAgreement Get(OrderAgreement entity);
     }
 }

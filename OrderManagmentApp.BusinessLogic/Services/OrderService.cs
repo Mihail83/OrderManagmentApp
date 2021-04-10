@@ -32,7 +32,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
             newOrder.OrderAgreement = null;
             _orderRepository.Add(newOrder);
 
-            if (tempOrderAgreement != null)
+            if (tempOrderAgreement != null && _orderAgreementRepository.Get(tempOrderAgreement) == null)
             {
                 _orderAgreementRepository.Add(tempOrderAgreement);
             }
@@ -45,7 +45,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
 
             _orderRepository.Update(newOrder);
 
-            if (tempOrderAgreement != null)
+            if (tempOrderAgreement != null && _orderAgreementRepository.Get(tempOrderAgreement) == null)
             {
                 _orderAgreementRepository.Add(tempOrderAgreement);
             }
