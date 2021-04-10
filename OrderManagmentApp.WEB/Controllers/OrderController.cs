@@ -5,6 +5,7 @@ using OrderManagmentApp.BusinessLogic.Services;
 using OrderManagmentApp.WEB.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
@@ -58,12 +59,27 @@ namespace OrderManagmentApp.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                _orderService.SaveOrder(_mapperToOrder.Map(model));
-                return RedirectToAction(nameof(OrderManager));
+                if (_orderService.GetOrderById(model.Id ) == null)
+                {
+                    try
+                    {
+                        _orderService.SaveOrder(_mapperToOrder.Map(model));
+                        return RedirectToAction(nameof(OrderManager));
+                    }
+                    catch (Exception ex)
+                    {
+                        // TODO нормальный перехват ошибок  Create = OrderViewModel
+
+                        ModelState.AddModelError("BaseError", $"{ex.InnerException}");                    
+                    }                    
+                }
+                else
+                {                    
+                    ModelState.AddModelError("NotUniqueID", $"Эта спецификация уже существует");
+                }                
             }
             SetSelectListToViewBag();
-            return View();
-            
+            return View(model);            
         }
 
         [HttpGet]
@@ -76,9 +92,7 @@ namespace OrderManagmentApp.WEB.Controllers
                 return RedirectToAction(nameof(Create));
 
             }
-
             return View(_mapperToViewModel.Map(order));
-
         }
 
         [HttpPost]
@@ -99,7 +113,7 @@ namespace OrderManagmentApp.WEB.Controllers
             
         }
 
-        private void SetSelectListToViewBag()  //???  какие модели использую на WEB  ???
+        private void SetSelectListToViewBag()  //???  Добавлять данные через ajax  ???
         {
             var managers = _managerService.GetManagers();
             if (managers != null)

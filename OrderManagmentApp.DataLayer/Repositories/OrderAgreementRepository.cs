@@ -24,7 +24,12 @@ namespace OrderManagmentApp.DataLayer.Repositories
         {
             _dbSet.Add(entity);
             _dbContext.SaveChanges();
-        }       
+        }
+
+        public OrderAgreement Get(OrderAgreement entity)
+        {            
+            return _dbSet.FirstOrDefault(item => item.AgreementId == entity.AgreementId && item.OrderId == entity.OrderId);
+        }
 
         public IEnumerable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null)
         {

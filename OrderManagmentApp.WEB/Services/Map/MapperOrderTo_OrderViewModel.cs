@@ -13,7 +13,7 @@ namespace OrderManagmentApp.WEB.Services.Map
             var orderViewModel = new OrderViewModel
             {
                 Id = model.Id,
-                DateOfCreating = model.DateOfCreating,
+                DateOfCreating = model.DateOfCreating ?? new System.DateTime(),
                 CustomerId = model.CustomerId,
                 CustomerName = model.Customer?.Name,
                 Advance = model.Advance,

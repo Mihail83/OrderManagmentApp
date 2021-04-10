@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using OrderManagmentApp.Infrastructure.Enums;
+using OrderManagmentApp.WEB.Services.Validation;
 
 namespace OrderManagmentApp.WEB.Models
 {
+    [CheckAgreementInOrderValidation]
     public class OrderViewModel
     {
         [Required]
@@ -14,8 +16,9 @@ namespace OrderManagmentApp.WEB.Models
         [DataType(DataType.Date)]
         [Display(Name = "Создан")]
         public DateTime DateOfCreating { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Выберите клиента")]
         public int CustomerId { get; set; }
+        [Required(ErrorMessage = "Выберите клиента")]
         [Display(Name = "Клиент")]
         public string CustomerName { get; set; }
         [Display(Name = "Телефон")]
@@ -27,12 +30,13 @@ namespace OrderManagmentApp.WEB.Models
         [StringLength(200, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 200 символов")]
         [Display(Name = "Товар")]
         public string Good { get; set; }
-        //[DataType(DataType.Currency)]
+        [RegularExpression(@"^\d+\,*\d{0,2}", ErrorMessage = "Введите сумму")]
+        [DataType(DataType.Currency)]
         [Display(Name = "Сумма контракта")]
-        public decimal ContractSum { get; set; }
-        //[DataType(DataType.Currency)]
-        [Display(Name = "Аванс")]
-        public decimal Advance { get; set; }
+        public decimal? ContractSum { get; set; }
+        [DataType(DataType.Currency)]
+        [Display(Name = "Аванс")]        
+        public decimal? Advance { get; set; }
         [Display(Name = "Комментарий")]
         public string AdditionalInfo { get; set; }
         [Display(Name = "Статус")]
@@ -47,7 +51,7 @@ namespace OrderManagmentApp.WEB.Models
 
         [Display(Name = "Отгрузка в")]
         public string ShipmentDestination { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Выберите менеджера")]
         public int ManagerId { get; set; }
         
         [Display(Name = "Менеджер")]
@@ -55,6 +59,7 @@ namespace OrderManagmentApp.WEB.Models
 
         [Display(Name = "Статус Алютех")]
         public string OrderInFactory_StateOfShipment { get; set; }
+        [Display(Name = "Архивная спецификация")]
         [UIHint("Boolean")]
         public bool IsArchived { get; set; }
     }

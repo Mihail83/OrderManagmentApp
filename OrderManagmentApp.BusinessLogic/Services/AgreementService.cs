@@ -29,10 +29,16 @@ namespace OrderManagmentApp.BusinessLogic.Services
             SetTempOrderAgreemenr(newAgreement);
 
             _agreementRepository.Add(newAgreement);
+            
+
 
             if (tempOrderAgreement != null)
             {
-                _orderAgreementRepository.Add(tempOrderAgreement);
+                tempOrderAgreement.AgreementId = newAgreement.Id;
+                if (_orderAgreementRepository. Get(tempOrderAgreement) == null)
+                {
+                    _orderAgreementRepository.Add(tempOrderAgreement);
+                }                
             }
         }
         public void UpdateAgreement(Agreement newAgreement)
