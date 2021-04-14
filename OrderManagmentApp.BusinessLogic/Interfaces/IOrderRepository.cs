@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
+using System.Linq;
 
 namespace OrderManagmentApp.BusinessLogic.Interfaces
 {
     public interface IOrderRepository : IGenericCrudRepository<Order>
     {
-        public IEnumerable<Order> GetAllOrdersNoArchive(IEnumerable<Expression<Func<Order, bool>>> predicates = null);
+        public IQueryable<Order> GetOrdersNoArchive(IEnumerable<Expression<Func<Order, bool>>> predicates = null);
     }
 }

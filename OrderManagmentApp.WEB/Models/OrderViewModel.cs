@@ -13,9 +13,11 @@ namespace OrderManagmentApp.WEB.Models
         [Range(99999, int.MaxValue, ErrorMessage = "Некоректный номер спецификации")]
         [Display(Name ="Спецификация")]
         public int Id { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Создан")]
         public DateTime DateOfCreating { get; set; }
+
         [Required(ErrorMessage = "Выберите клиента")]
         public int CustomerId { get; set; }
         [Required(ErrorMessage = "Выберите клиента")]
