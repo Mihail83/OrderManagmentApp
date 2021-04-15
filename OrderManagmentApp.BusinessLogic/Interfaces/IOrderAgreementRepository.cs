@@ -12,7 +12,7 @@ namespace OrderManagmentApp.BusinessLogic.Interfaces
         public IQueryable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null);
         public void Add(OrderAgreement entity);
         public void Update(OrderAgreement entity);
-        public void Delete(OrderAgreement entity);
-        public OrderAgreement Get(OrderAgreement entity);
+        public void Delete(int orderID);
+        public OrderAgreement Get(int orderID);
     }
 }

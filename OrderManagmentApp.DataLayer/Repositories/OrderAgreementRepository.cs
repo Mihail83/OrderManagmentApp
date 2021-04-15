@@ -26,9 +26,9 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public OrderAgreement Get(OrderAgreement entity)
+        public OrderAgreement Get(int orderId)
         {            
-            return _dbSet.FirstOrDefault(item => item.AgreementId == entity.AgreementId && item.OrderId == entity.OrderId);
+            return _dbSet.FirstOrDefault(item => item.OrderId == orderId);
         }
 
         public IQueryable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null)
@@ -48,10 +48,16 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void Delete(OrderAgreement entity)
+        public void Delete(int orderId)
         {
-            _dbSet.Remove(entity);
-            _dbContext.SaveChanges();           
+            var entity = Get(orderId);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+                _dbContext.SaveChanges();
+
+            }
+                       
         }
     }
 }

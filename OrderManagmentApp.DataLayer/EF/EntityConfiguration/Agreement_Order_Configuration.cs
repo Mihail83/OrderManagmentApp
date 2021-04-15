@@ -8,8 +8,8 @@ namespace OrderManagmentApp.DataLayer.EF.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<OrderAgreement> builder)
         {
-            builder.HasKey(key => new { key.OrderId, key.AgreementId });
-            builder.HasIndex(entity => entity.OrderId).IsUnique();
+            builder.HasKey(key => key.OrderId);
+            builder.HasIndex(entity => entity.AgreementId).IsUnique(false);
         }
     }
 }
