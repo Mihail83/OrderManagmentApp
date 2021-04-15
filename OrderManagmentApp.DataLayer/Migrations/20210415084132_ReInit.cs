@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OrderManagmentApp.DataLayer.Migrations
 {
-    public partial class init : Migration
+    public partial class ReInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,18 +15,13 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumbers_FirstNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumbers_SecondNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumbers_ThirdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phones = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Emeil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Company_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Company_TaxPayerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Company_Bank_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Company_Bank_Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Company_Bank_Account = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Company_Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Company_OKPO = table.Column<decimal>(type: "decimal(20,0)", nullable: true)
+                    Company_BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,21 +68,21 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Сontracts",
+                name: "Agreements",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 3, 28, 0, 0, 0, 0, DateTimeKind.Local)),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     Good = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sum = table.Column<decimal>(type: "money", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Сontracts", x => x.Id);
+                    table.PrimaryKey("PK_Agreements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Сontracts_Customers_CustomerId",
+                        name: "FK_Agreements_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id");
@@ -98,17 +93,16 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    DateOfCreating = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 3, 28, 0, 0, 0, 0, DateTimeKind.Local)),
+                    DateOfCreating = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getdate()"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    CurrentAgreement = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Good = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    ContractSum = table.Column<decimal>(type: "money", nullable: false),
-                    Advance = table.Column<decimal>(type: "money", nullable: false),
+                    ContractSum = table.Column<decimal>(type: "money", nullable: true),
+                    Advance = table.Column<decimal>(type: "money", nullable: true),
                     AdditionalInfo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     OrderState = table.Column<int>(type: "int", nullable: false),
                     ShipmentSpecialistId = table.Column<int>(type: "int", nullable: true),
                     ShipmentDestinationId = table.Column<int>(type: "int", nullable: true),
-                    ManagerId = table.Column<int>(type: "int", nullable: true),
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -137,6 +131,30 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderAgreements",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    AgreementId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderAgreements", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_OrderAgreements_Agreements_AgreementId",
+                        column: x => x.AgreementId,
+                        principalTable: "Agreements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_OrderAgreements_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderByALutehs",
                 columns: table => new
                 {
@@ -162,32 +180,10 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "Managers",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "FirstTestManager" },
-                    { 2, "SecondTestManager" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ShipmentDestinations",
-                columns: new[] { "Id", "Destination" },
-                values: new object[,]
-                {
-                    { 1, "destination1" },
-                    { 2, "destination2222" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ShipmentSpecialists",
-                columns: new[] { "Id", "Specialist" },
-                values: new object[,]
-                {
-                    { 1, "specialist1" },
-                    { 2, "specialist2222" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Agreements_CustomerId",
+                table: "Agreements",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Managers_Name",
@@ -195,6 +191,12 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 column: "Name",
                 unique: true,
                 filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderAgreements_AgreementId",
+                table: "OrderAgreements",
+                column: "AgreementId",
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderByALutehs_OrderId",
@@ -228,20 +230,18 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 column: "Destination",
                 unique: true,
                 filter: "[Destination] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Сontracts_CustomerId",
-                table: "Сontracts",
-                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "OrderAgreements");
+
+            migrationBuilder.DropTable(
                 name: "OrderByALutehs");
 
             migrationBuilder.DropTable(
-                name: "Сontracts");
+                name: "Agreements");
 
             migrationBuilder.DropTable(
                 name: "Orders");

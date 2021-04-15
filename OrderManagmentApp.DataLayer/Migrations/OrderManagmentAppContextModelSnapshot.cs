@@ -160,13 +160,9 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Property<int>("AgreementId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "AgreementId");
+                    b.HasKey("OrderId");
 
-                    b.HasIndex("AgreementId")
-                        .IsUnique();
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
+                    b.HasIndex("AgreementId");
 
                     b.ToTable("OrderAgreements");
                 });

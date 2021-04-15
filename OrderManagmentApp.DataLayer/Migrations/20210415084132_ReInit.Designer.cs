@@ -10,8 +10,8 @@ using OrderManagmentApp.DataLayer.EF;
 namespace OrderManagmentApp.DataLayer.Migrations
 {
     [DbContext(typeof(OrderManagmentAppContext))]
-    [Migration("20210328184516_init")]
-    partial class init
+    [Migration("20210415084132_ReInit")]
+    partial class ReInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace OrderManagmentApp.DataLayer.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.AgreementEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Agreement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 3, 28, 0, 0, 0, 0, DateTimeKind.Local));
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -46,20 +46,20 @@ namespace OrderManagmentApp.DataLayer.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Сontracts");
+                    b.ToTable("Agreements");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.CustomerEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("AdditionalInfo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Emeil")
@@ -70,12 +70,16 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Phones")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ManagerEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Manager", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,21 +97,9 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Managers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "FirstTestManager"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "SecondTestManager"
-                        });
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.OrderEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -116,23 +108,19 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Advance")
+                    b.Property<decimal?>("Advance")
                         .HasColumnType("money");
 
-                    b.Property<decimal>("ContractSum")
+                    b.Property<decimal?>("ContractSum")
                         .HasColumnType("money");
-
-                    b.Property<string>("CurrentAgreement")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfCreating")
+                    b.Property<DateTime?>("DateOfCreating")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 3, 28, 0, 0, 0, 0, DateTimeKind.Local));
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Good")
                         .HasMaxLength(200)
@@ -141,7 +129,7 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ManagerId")
+                    b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderState")
@@ -166,7 +154,23 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.OrderInFactoryEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.OrderAgreement", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AgreementId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("AgreementId")
+                        .IsUnique();
+
+                    b.ToTable("OrderAgreements");
+                });
+
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.OrderInFactory", b =>
                 {
                     b.Property<int>("ID")
                         .HasColumnType("int");
@@ -213,7 +217,7 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.ToTable("OrderByALutehs");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ShipmentDestinationEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.ShipmentDestination", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -230,21 +234,9 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .HasFilter("[Destination] IS NOT NULL");
 
                     b.ToTable("ShipmentDestinations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Destination = "destination1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Destination = "destination2222"
-                        });
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ShipmentSpecialistEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.ShipmentSpecialist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,24 +249,12 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShipmentSpecialists");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Specialist = "specialist1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Specialist = "specialist2222"
-                        });
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.AgreementEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Agreement", b =>
                 {
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.CustomerEntity", "Customer")
-                        .WithMany("AgreemenEntities")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Customer", "Customer")
+                        .WithMany("Agreements")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
@@ -282,11 +262,11 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.CustomerEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Customer", b =>
                 {
-                    b.OwnsOne("OrderManagmentApp.DataLayer.EntityModels.Company", "Company", b1 =>
+                    b.OwnsOne("OrderManagmentApp.BusinessLogic.Models.Company", "Company", b1 =>
                         {
-                            b1.Property<int>("CustomerEntityId")
+                            b1.Property<int>("CustomerId")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -294,98 +274,47 @@ namespace OrderManagmentApp.DataLayer.Migrations
                             b1.Property<string>("Address")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("Name")
+                            b1.Property<string>("BankAccount")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<decimal>("OKPO")
-                                .HasColumnType("decimal(20,0)");
+                            b1.Property<string>("Name")
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("TaxPayerId")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("CustomerEntityId");
+                            b1.HasKey("CustomerId");
 
                             b1.ToTable("Customers");
 
                             b1.WithOwner()
-                                .HasForeignKey("CustomerEntityId");
-
-                            b1.OwnsOne("OrderManagmentApp.DataLayer.EntityModels.BankInfo", "Bank", b2 =>
-                                {
-                                    b2.Property<int>("CompanyCustomerEntityId")
-                                        .ValueGeneratedOnAdd()
-                                        .HasColumnType("int")
-                                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                                    b2.Property<string>("Account")
-                                        .HasColumnType("nvarchar(max)");
-
-                                    b2.Property<string>("Name")
-                                        .HasColumnType("nvarchar(max)");
-
-                                    b2.Property<string>("Number")
-                                        .HasColumnType("nvarchar(max)");
-
-                                    b2.HasKey("CompanyCustomerEntityId");
-
-                                    b2.ToTable("Customers");
-
-                                    b2.WithOwner()
-                                        .HasForeignKey("CompanyCustomerEntityId");
-                                });
-
-                            b1.Navigation("Bank");
-                        });
-
-                    b.OwnsOne("OrderManagmentApp.DataLayer.EntityModels.Phones", "PhoneNumbers", b1 =>
-                        {
-                            b1.Property<int>("CustomerEntityId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("FirstNumber")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("SecondNumber")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("ThirdNumber")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("CustomerEntityId");
-
-                            b1.ToTable("Customers");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CustomerEntityId");
+                                .HasForeignKey("CustomerId");
                         });
 
                     b.Navigation("Company");
-
-                    b.Navigation("PhoneNumbers");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.OrderEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Order", b =>
                 {
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.CustomerEntity", "Customer")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.ManagerEntity", "Manager")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Manager", "Manager")
                         .WithMany("OrderEntities")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.ClientNoAction);
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
 
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.ShipmentDestinationEntity", "ShipmentDestination")
-                        .WithMany("OrderEntities")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.ShipmentDestination", "ShipmentDestination")
+                        .WithMany("Orders")
                         .HasForeignKey("ShipmentDestinationId")
                         .OnDelete(DeleteBehavior.ClientNoAction);
 
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.ShipmentSpecialistEntity", "ShipmentSpecialist")
-                        .WithMany("OrderEntities")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.ShipmentSpecialist", "ShipmentSpecialist")
+                        .WithMany("Orders")
                         .HasForeignKey("ShipmentSpecialistId")
                         .OnDelete(DeleteBehavior.ClientNoAction);
 
@@ -398,42 +327,68 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Navigation("ShipmentSpecialist");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.OrderInFactoryEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.OrderAgreement", b =>
                 {
-                    b.HasOne("OrderManagmentApp.DataLayer.EntityModels.OrderEntity", "Order")
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Agreement", "Agreement")
+                        .WithOne("OrderAgreement")
+                        .HasForeignKey("OrderManagmentApp.BusinessLogic.Models.OrderAgreement", "AgreementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Order", "Order")
+                        .WithOne("OrderAgreement")
+                        .HasForeignKey("OrderManagmentApp.BusinessLogic.Models.OrderAgreement", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agreement");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.OrderInFactory", b =>
+                {
+                    b.HasOne("OrderManagmentApp.BusinessLogic.Models.Order", "Order")
                         .WithOne("OrderInFactory")
-                        .HasForeignKey("OrderManagmentApp.DataLayer.EntityModels.OrderInFactoryEntity", "OrderId")
+                        .HasForeignKey("OrderManagmentApp.BusinessLogic.Models.OrderInFactory", "OrderId")
                         .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.CustomerEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Agreement", b =>
                 {
-                    b.Navigation("AgreemenEntities");
+                    b.Navigation("OrderAgreement");
+                });
+
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Customer", b =>
+                {
+                    b.Navigation("Agreements");
 
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ManagerEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Manager", b =>
                 {
                     b.Navigation("OrderEntities");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.OrderEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.Order", b =>
                 {
+                    b.Navigation("OrderAgreement");
+
                     b.Navigation("OrderInFactory");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ShipmentDestinationEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.ShipmentDestination", b =>
                 {
-                    b.Navigation("OrderEntities");
+                    b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("OrderManagmentApp.DataLayer.EntityModels.ShipmentSpecialistEntity", b =>
+            modelBuilder.Entity("OrderManagmentApp.BusinessLogic.Models.ShipmentSpecialist", b =>
                 {
-                    b.Navigation("OrderEntities");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

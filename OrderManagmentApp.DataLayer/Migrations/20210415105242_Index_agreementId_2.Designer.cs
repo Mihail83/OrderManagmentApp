@@ -10,8 +10,8 @@ using OrderManagmentApp.DataLayer.EF;
 namespace OrderManagmentApp.DataLayer.Migrations
 {
     [DbContext(typeof(OrderManagmentAppContext))]
-    [Migration("20210406095533_ReturnForeignKeyToOrder")]
-    partial class ReturnForeignKeyToOrder
+    [Migration("20210415105242_Index_agreementId_2")]
+    partial class Index_agreementId_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,16 +108,16 @@ namespace OrderManagmentApp.DataLayer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Advance")
+                    b.Property<decimal?>("Advance")
                         .HasColumnType("money");
 
-                    b.Property<decimal>("ContractSum")
+                    b.Property<decimal?>("ContractSum")
                         .HasColumnType("money");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfCreating")
+                    b.Property<DateTime?>("DateOfCreating")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
@@ -162,13 +162,9 @@ namespace OrderManagmentApp.DataLayer.Migrations
                     b.Property<int>("AgreementId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "AgreementId");
+                    b.HasKey("OrderId");
 
-                    b.HasIndex("AgreementId")
-                        .IsUnique();
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
+                    b.HasIndex("AgreementId");
 
                     b.ToTable("OrderAgreements");
                 });
