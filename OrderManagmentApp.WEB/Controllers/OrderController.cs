@@ -87,37 +87,19 @@ namespace OrderManagmentApp.WEB.Controllers
                 state = ordersState
             };
 
-            //
-
-            #region Repeat mine
             var managers = _managerService.GetManagers();
             if (managers != null)
             {
                 var managerList = new SelectList(managers, "Id", "Name");
-                if (ordersState.FilterState.ValueOfFilterByManagerId != null)
-                {
-                    var valueOfFilter = ((int)ordersState.FilterState.ValueOfFilterByManagerId).ToString();
-                    foreach (var item in managerList)
-                    {
-                        item.Selected = string.Equals(item.Value, valueOfFilter);
-                    }
-                }
-                ViewBag.managers = managerList;
+                ViewBag.managers = managerList.SetSelectedItemByValue(ordersState.FilterState.ValueOfFilterByManagerId.ToString());                
+                
             }
 
             var shipSpecialists = _shipmentSpecialistService.GetShipmentSpecialists();
             if (shipSpecialists != null)
             {
-                var shipSpecialistsList = new SelectList(shipSpecialists, "Id", "Specialist");
-                if (ordersState.FilterState.ValueOfFilterByShipmentSpecId != null)
-                {
-                    var valueOfFilter = ((int)ordersState.FilterState.ValueOfFilterByShipmentSpecId).ToString();
-                    foreach (var item in shipSpecialistsList)
-                    {
-                        item.Selected = string.Equals(item.Value, valueOfFilter);
-                    }
-                }
-                ViewBag.shipmentSpecialists = shipSpecialistsList;
+                var shipSpecialistsList = new SelectList(shipSpecialists, "Id", "Specialist");             
+                ViewBag.shipmentSpecialists = shipSpecialistsList.SetSelectedItemByValue(ordersState.FilterState.ValueOfFilterByShipmentSpecId.ToString());
             }
 
             var shipDestinations = _shipmentDestinationService.GetShipmentDestinations();
@@ -125,22 +107,8 @@ namespace OrderManagmentApp.WEB.Controllers
             if (shipDestinations != null)
             {
                 var shipSpecialistsList = new SelectList(shipDestinations, "Id", "Destination");
-                if (ordersState.FilterState.ValueOfFilterByShipmentDestId != null)
-                {
-                    var valueOfFilter = ((int)ordersState.FilterState.ValueOfFilterByShipmentDestId).ToString();
-                    foreach (var item in shipSpecialistsList)
-                    {
-                        item.Selected = string.Equals(item.Value, valueOfFilter);
-                    }
-                }
-                ViewBag.shipDest = shipSpecialistsList;
+                ViewBag.shipDest = shipSpecialistsList.SetSelectedItemByValue(ordersState.FilterState.ValueOfFilterByShipmentDestId.ToString());
             }
-            #endregion
-
-
-
-
-
             return View(orderManagerViewModel);
         }
 

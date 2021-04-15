@@ -3,6 +3,7 @@ using OrderManagmentApp.BusinessLogic.Models;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
+using System.Linq;
 
 namespace OrderManagmentApp.BusinessLogic.Services
 {
@@ -20,8 +21,8 @@ namespace OrderManagmentApp.BusinessLogic.Services
 
         public IEnumerable<Agreement> GetAgreementToAgreementPage(IEnumerable<Expression<Func<Agreement, bool>>> expressions = null)
         {
-            var orders = _agreementRepository.GetAllByExpression(expressions);
-            return orders;
+            var agreements = _agreementRepository.GetAllByExpression(expressions);
+            return agreements;
         }
 
         public void SaveAgreement(Agreement newAgreement)
@@ -35,7 +36,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
             if (tempOrderAgreement != null)
             {
                 tempOrderAgreement.AgreementId = newAgreement.Id;
-                if (_orderAgreementRepository. Get(tempOrderAgreement) == null)
+                if (_orderAgreementRepository.GetAllByExpression().Where(ordAgr =>ordAgr.OrderId == tempOrderAgreement.OrderId).ToList() == null)
                 {
                     _orderAgreementRepository.Add(tempOrderAgreement);
                 }                
@@ -48,7 +49,9 @@ namespace OrderManagmentApp.BusinessLogic.Services
 
             _agreementRepository.Update(newAgreement);
 
-            if (tempOrderAgreement != null)
+            if (tempOrderAgreement != null && 
+                    _orderAgreementRepository.GetAllByExpression()
+                    .Where(ordAgr => ordAgr.OrderId == tempOrderAgreement.OrderId).ToList() == null)
             {
                 _orderAgreementRepository.Add(tempOrderAgreement);
             }
