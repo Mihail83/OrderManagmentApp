@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.DataLayer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.BusinessLogic", "OrderManagmentApp.BusinessLogic\OrderManagmentApp.BusinessLogic.csproj", "{E4967393-8072-48DD-B0D7-285AD4F1675B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagmentApp.Infrastructure", "OrderManagmentApp.Infrastructure\OrderManagmentApp.Infrastructure.csproj", "{532CD27C-4B92-469C-8C2E-73A552E2B291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagmentApp.Infrastructure", "OrderManagmentApp.Infrastructure\OrderManagmentApp.Infrastructure.csproj", "{532CD27C-4B92-469C-8C2E-73A552E2B291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

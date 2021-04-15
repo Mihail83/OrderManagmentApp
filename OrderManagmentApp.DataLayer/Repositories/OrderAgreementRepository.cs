@@ -31,18 +31,14 @@ namespace OrderManagmentApp.DataLayer.Repositories
             return _dbSet.FirstOrDefault(item => item.AgreementId == entity.AgreementId && item.OrderId == entity.OrderId);
         }
 
-        public IEnumerable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null)
+        public IQueryable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null)
         {
-            var entities = new List<OrderAgreement>();
+            var entities = _dbSet.Include("Agreement").AsNoTracking();
 
-            if (expressions == null)
-            {
-                entities.AddRange(_dbSet.Include("Agreement").AsNoTracking());
-            }
-            else
-            {
-                throw new NotImplementedException(GetType().ToString());
-            }
+            
+           
+                //throw new NotImplementedException(GetType().ToString());
+            
             return entities;
         }
 
@@ -52,7 +48,7 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        void IOrderAgreementRepository.Delete(OrderAgreement entity)
+        public void Delete(OrderAgreement entity)
         {
             _dbSet.Remove(entity);
             _dbContext.SaveChanges();           

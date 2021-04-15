@@ -1,6 +1,8 @@
-﻿@model IEnumerable<OrderViewModel>
+﻿@model OrderManagerViewModel
 @using OrderManagmentApp.WEB.Models;
 @using OrderManagmentApp.Infrastructure;
+@using OrderManagmentApp.Infrastructure.Enums;
+@using OrderManagmentApp.Infrastructure.StateKeepers;
 @{
     ViewData["Title"] = "OrderManager";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,46 +12,138 @@
     <a asp-action="Create">Create New</a>
 </p>
 <div class="m-2">
+    <div class="form-inline">
+        <form id="filter" asp-action="ChangeFilter" method="post">
+            <input type="submit" name="name" value="UseFilter" />
+        </form>
+    </div>
+
     <table id="mainpage" class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Номер</th>
-                <th>Дата</th>
-                <th>Клиент</th>
+                <th><input form="filter" name="ValueOfFilterById" type="number" value="@Model.state.FilterState.ValueOfFilterById" placeholder="Номер" class="form-control" /></th>
+                <th><input form="filter" name="ValueOfFilterByDateOfCreating" type="date" value="@Model.state.FilterState.ValueOfFilterByDateOfCreating.DateToYyyyMmDdString()" placeholder="Дата" class="form-control" /></th>
+                <th><input form="filter" name="ValueOfFilterByCustomerName" type="text" value="@Model.state.FilterState.ValueOfFilterByCustomerName" class="form-control" placeholder="Клиент" /></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+
+                    @{var items = Html.GetEnumSelectList<OrderState>();
+                        if (Model.state.FilterState.ValueOfFilterByOrderState != null)
+                        {
+                            var valueOfFilterByOrderState = (int)Model.state.FilterState.ValueOfFilterByOrderState;
+                            foreach (var item in items)
+                            {
+                                if (String.Equals(item.Value, valueOfFilterByOrderState.ToString()))
+                                {
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    <select form="filter" name="ValueOfFilterByOrderState" class="form-control" asp-items="items">
+                        <option value="">None</option>
+                    </select>
+                </th>
+
+                <th>
+                    <select form="filter" class="form-control" name="ValueOfFilterByShipmentSpecId" asp-items="ViewBag.shipmentSpecialists">
+                        <option value="">--- SELECT ---</option>
+                    </select>
+                </th>
+                @*<th>
+                <input form="filter" name="ValueOfFilterByShipmentSpecId" type="number" value="@Model.state.FilterState.ValueOfFilterByShipmentSpecId" class="form-control" placeholder="Отгрузка" />
+                </th>*@
+                
+                
+                <th>
+                    <select form="filter" class="form-control" name="ValueOfFilterByShipmentDestId" asp-items="ViewBag.shipDest">
+                        <option value="">--- SELECT ---</option>
+                    </select>
+                </th>
+                @*<th>
+                <input form="filter" name="ValueOfFilterByShipmentDestId" type="number" value="@Model.state.FilterState.ValueOfFilterByShipmentDestId" class="form-control" placeholder="отгрузка в" />
+                </th>*@
+                
+
+                <th>
+                    <select form="filter" class="form-control" name="ValueOfFilterByManagerId" asp-items="ViewBag.managers">
+                        <option  value="">--- SELECT ---</option>
+                    </select>
+                </th>
+                @*<th><input form="filter" name="ValueOfFilterByManagerId" type="number" value="@Model.state.FilterState.ValueOfFilterByManagerId" class="form-control" placeholder="Менеджер" /></th>*@
+
+
+
+
+                <th></th>
+            </tr>
+            <tr>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.IdSort">Номер</a> </th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.DateOfCreatingSort">Дата</a></th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.CustomerSort">Клиент</a></th>
                 <th>Телефон</th>
                 <th>Договор</th>
                 <th>Товар</th>
                 <th>Сумма</th>
                 <th>Коментарий</th>
-                <th>Статус</th>
-                <th>отгрузка</th>
-                <th>Куда</th>
-                <th>Менеджер</th>
-                <th>Статус завода</th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.OrderStateSort">Статус</a></th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.ShipmentSpecialistSort">Отгрузка</a></th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.ShipmentDestinationSort">Куда</a></th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.ManagerSort">Менеджер</a></th>
+                <th><a asp-action="ChangeSort" asp-route-orderSortState="@Model.state.SortState.OrderInFactorySort">Статус завода</a></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var order in Model)
-            {
-            <tr id="@order.Id">
 
-                <td>@Html.ActionLink(@order.Id.ToString(), "Edit", new { id = order.Id })</td>
-                <td>@order.DateOfCreating.ToShortDateString()</td>
-                <td>@order.CustomerName</td>
-                <td>@order.CustomerPhones[0]</td>
-                <td>@order.CurrentAgreement</td>
-                <td>@order.Good</td>
-                <td>@order.ContractSum</td>
-                <td>@order.AdditionalInfo</td>
-                <td>@order.OrderState.GetDisplayName()</td>
-                <td>@order.ShipmentSpecialist</td>
-                <td>@order.ShipmentDestination</td>
-                <td>@order.Manager</td>
-                <td>@order.OrderInFactory_StateOfShipment</td>              
-            </tr>
+            @foreach (var order in Model.orderViewModels)
+            {
+                <tr id="@order.Id">
+
+                    <td>@Html.ActionLink(@order.Id.ToString(), "Edit", new { id = order.Id })</td>
+                    <td>@order.DateOfCreating.ToShortDateString()</td>
+                    <td>@order.CustomerName</td>
+                    <td>@order.CustomerPhones[0]</td>
+                    <td>@order.CurrentAgreement</td>
+                    <td>@order.Good</td>
+                    <td>@order.ContractSum</td>
+                    <td>@order.AdditionalInfo</td>
+                    <td>@order.OrderState.GetDisplayName()</td>
+                    <td>@order.ShipmentSpecialist</td>
+                    <td>@order.ShipmentDestination</td>
+                    <td>@order.Manager</td>
+                    <td>@order.OrderInFactory_StateOfShipment</td>
+                </tr>
             }
         </tbody>
 
     </table>
+
+</div>
+<div class="row m-2">
+    @if (Model.state.PageState.HasPreviousPage)
+    {
+        <a asp-action="ChangePage"
+           asp-route-PageModification="-1"
+           class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+
+    @if (Model.state.PageState.HasNextPage)
+    {
+        <a asp-action="ChangePage"
+           asp-route-PageModification="1"
+           class="btn btn-outline-dark">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
 
 </div>

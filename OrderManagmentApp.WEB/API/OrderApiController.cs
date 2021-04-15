@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +30,11 @@ namespace OrderManagmentApp.WEB.API
         public  JsonResult GetOrdersThisCustomer(int id)
         {
             var Orders = _appContext.Orders
-                .Where(order => order.CustomerId == id)
-                .Select(order =>  new {id = order.Id, date= ((DateTime)order.DateOfCreating).ToShortDateString()  } )
-                .ToList();                
+                .Include(ord=>ord.OrderAgreement)
+                .Where(order => order.CustomerId == id && order.OrderAgreement == null)
+                .Select(order =>  new {id = order.Id, date= ((DateTime)order.DateOfCreating).ToShortDateString()  } );                
                 
-            return Json(Orders);
+            return Json(Orders.ToList());
         }
     }
 }

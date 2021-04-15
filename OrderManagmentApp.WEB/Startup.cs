@@ -11,6 +11,7 @@ using OrderManagmentApp.DataLayer;
 using OrderManagmentApp.WEB.Models;
 using OrderManagmentApp.WEB.Services.Map;
 
+
 namespace OrderManagmentApp.WEB
 {
     public class Startup
@@ -25,7 +26,15 @@ namespace OrderManagmentApp.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "OrderManagmentApp";
+                options.IdleTimeout = System.TimeSpan.FromMinutes(60);
+                options.Cookie.IsEssential = true;
+            });
             services.AddControllersWithViews();
+
             services.AddDataLayerService(Configuration);
             services.AddBusinessLogicService(Configuration);
 
@@ -60,6 +69,7 @@ namespace OrderManagmentApp.WEB
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
