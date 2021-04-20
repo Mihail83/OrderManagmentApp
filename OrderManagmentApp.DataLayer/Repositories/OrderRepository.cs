@@ -2,6 +2,7 @@
 using OrderManagmentApp.DataLayer.EF;
 using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.BusinessLogic.Interfaces;
+using OrderManagmentApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,27 +34,17 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<Order> GetAllByExpression(IEnumerable<Expression<Func<Order, bool>>> expressions = null)
+        public IQueryable<Order> GetAllByExpression(IEnumerable<Expression<Func<Order, bool>>> expressions = null)
         {
-            var managerEntity = new List<Order>();
-
-            if (expressions == null)
-            {
-                managerEntity.AddRange(_dbSet.AsNoTracking());
-            }
-            else
-            {
-                throw new NotImplementedException(GetType().ToString());
-            }
-            return managerEntity;
+            var orderEntities = _dbSet.AsNoTracking();
+            orderEntities.UseExpresionsList(expressions);
+            return orderEntities;
         }
        
 
         public IQueryable<Order> GetOrdersNoArchive(IEnumerable<Expression<Func<Order, bool>>> predicates = null)
         {
-            if (predicates==null)
-            {
-                return _dbSet.Where(order => order.IsArchived == false)
+            return _dbSet.Where(order => order.IsArchived == false)
                 .Include(order => order.Customer)
                 .Include(order => order.Manager)
                 .Include(order => order.ShipmentDestination)
@@ -61,12 +52,8 @@ namespace OrderManagmentApp.DataLayer.Repositories
                 .Include(order => order.OrderInFactory)
                 .Include(order => order.OrderAgreement)
                     .ThenInclude(ordAgr => ordAgr.Agreement)
-                .AsNoTracking();
-            }
-            else
-            {
-                throw new NotImplementedException(GetType().ToString());
-            }
+                .AsNoTracking()
+                .UseExpresionsList(predicates);
         }
 
         public Order GetById(int id)

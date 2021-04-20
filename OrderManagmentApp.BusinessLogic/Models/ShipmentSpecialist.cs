@@ -7,5 +7,6 @@ namespace OrderManagmentApp.BusinessLogic.Models
         public int Id { get; set; }
         public string Specialist { get; set; }
         public List<Order> Orders { get; set; }
+        public bool IsDismissed { get; set; }
     }
 }

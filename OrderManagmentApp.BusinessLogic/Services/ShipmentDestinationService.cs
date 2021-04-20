@@ -16,11 +16,32 @@ namespace OrderManagmentApp.BusinessLogic.Services
             _shipmentDestinationRepository = shipmentDestinationRepository;
         }
 
-        public List<ShipmentDestination> GetShipmentDestinations(IEnumerable<Expression<Func<ShipmentDestination, bool>>> expressions = null)
+        public IEnumerable<ShipmentDestination> GetShipmentDestinations(IEnumerable<Expression<Func<ShipmentDestination, bool>>> expressions = null)
         {
             var shipmentDestination = _shipmentDestinationRepository.GetAllByExpression(expressions);
-            List<ShipmentDestination> result = shipmentDestination == null ? null : new List<ShipmentDestination>(shipmentDestination);
-            return result;
+            //List<ShipmentDestination> result = shipmentDestination == null ? null : new List<ShipmentDestination>(shipmentDestination);
+            return shipmentDestination;
+        }
+        public void Create(ShipmentDestination model)
+        {
+            _shipmentDestinationRepository.Add(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <exception cref="NullReferenceExeption, sqlExeption"> </exception>
+        public void ToggleBlock(ShipmentDestination entity)
+        {
+            entity.IsDisabled = !entity.IsDisabled;
+
+            _shipmentDestinationRepository.Update(entity);
+        }
+
+        public ShipmentDestination GetShipmentDestinationById(int id)
+        {
+            return _shipmentDestinationRepository.GetById(id);
         }
     }
 }

@@ -8,6 +8,7 @@ using OrderManagmentApp.Infrastructure.Enums;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Linq.Expressions;
 using OrderManagmentApp.WEB.Extensions;
 
 namespace OrderManagmentApp.WEB.Controllers
@@ -91,8 +92,7 @@ namespace OrderManagmentApp.WEB.Controllers
             if (managers != null)
             {
                 var managerList = new SelectList(managers, "Id", "Name");
-                ViewBag.managers = managerList.SetSelectedItemByValue(ordersState.FilterState.ValueOfFilterByManagerId.ToString());                
-                
+                ViewBag.managers = managerList.SetSelectedItemByValue(ordersState.FilterState.ValueOfFilterByManagerId.ToString());                 
             }
 
             var shipSpecialists = _shipmentSpecialistService.GetShipmentSpecialists();
@@ -180,20 +180,28 @@ namespace OrderManagmentApp.WEB.Controllers
 
         private void SetSelectListToViewBag()  //???  Добавлять данные через ajax  ???
         {
-            var managers = _managerService.GetManagers();
+            var managers = _managerService.GetManagers(
+                new Expression<Func<Manager, bool>>[] {(manager) => manager.IsDismissed == false} 
+                );
+
             if (managers != null)
             {
                 var managerList = new SelectList(managers, "Id", "Name");
                 ViewBag.managers = managerList;
             }
 
-            var shipSpecialists = _shipmentSpecialistService.GetShipmentSpecialists();
+            var shipSpecialists = _shipmentSpecialistService.GetShipmentSpecialists(
+                new Expression<Func<ShipmentSpecialist, bool>>[]{ (shipSpec) => shipSpec.IsDismissed == false}
+                );
             if (shipSpecialists != null)
             {
                 var shipSpecialistsList = new SelectList(shipSpecialists, "Id", "Specialist");
                 ViewBag.shipmentSpecialists = shipSpecialistsList;
             }
-            var shipDestinations = _shipmentDestinationService.GetShipmentDestinations();
+
+            var shipDestinations = _shipmentDestinationService.GetShipmentDestinations(
+                new Expression<Func<ShipmentDestination, bool>>[] { (shipSpec) => shipSpec.IsDisabled == false}
+                );
             if (shipDestinations != null)
             {
                 ViewBag.shipDest = new SelectList(shipDestinations, "Id", "Destination");                

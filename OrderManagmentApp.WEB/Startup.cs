@@ -38,9 +38,6 @@ namespace OrderManagmentApp.WEB
             services.AddDataLayerService(Configuration);
             services.AddBusinessLogicService(Configuration);
 
-            //services.AddScoped<IMapper<OrderState, string>, MapperOrderStateToString>();
-            //services.AddScoped<IMapper<string, OrderState>, MapperStringToOrderState>();
-
             services.AddScoped<IMapper<Order, OrderViewModel>, MapperOrderTo_OrderViewModel>();
             services.AddScoped<IMapper<OrderViewModel, Order>, MapperOrderViewModelToOrder>();
 
@@ -49,6 +46,17 @@ namespace OrderManagmentApp.WEB
 
             services.AddScoped<IMapper<Agreement, AgreementViewModel>, MapperAgreementToAgreementViewModel>();
             services.AddScoped<IMapper<AgreementViewModel, Agreement>, MapperAgreementViewModelToAgreement>();
+
+            services.AddScoped<IMapper<Manager, ManagerViewModel>, MapperManagerToViewModel>();
+            services.AddScoped<IMapper<ManagerViewModel, Manager>, MapperViewModelToManager>();
+
+            services.AddScoped<IMapper<ShipmentDestination, ShipmentDestinationViewModel>, MapperShipmentDestinationToViewModel>();
+            services.AddScoped<IMapper<ShipmentDestinationViewModel, ShipmentDestination>, MapperViewModelToShipmentDestination>();
+
+            services.AddScoped<IMapper<ShipmentSpecialist, ShipmentSpecialistViewModel>, MapperShipmentSpecialistToViewModel>();
+            services.AddScoped<IMapper<ShipmentSpecialistViewModel, ShipmentSpecialist>, MapperViewModelToShipmentSpecialist>();
+
+
 
             services.AddScoped<OrderService>();
 

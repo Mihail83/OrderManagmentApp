@@ -22,5 +22,19 @@ namespace OrderManagmentApp.BusinessLogic.Services
             List<ShipmentSpecialist> result = shipmentSpecialists == null ? null : new List<ShipmentSpecialist>(shipmentSpecialists);
             return result;
         }
+        public void Create(ShipmentSpecialist model) 
+        {
+            _shipmentSpecialistRepository.Add(model);
+        }
+        public void ToggleBlock(ShipmentSpecialist entity)
+        {
+            entity.IsDismissed = !entity.IsDismissed;
+
+            _shipmentSpecialistRepository.Update(entity);
+        }
+        public ShipmentSpecialist GetShipmentSpecialistId(int id)
+        {
+            return _shipmentSpecialistRepository.GetById(id);
+        }
     }
 }

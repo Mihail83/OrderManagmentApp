@@ -2,6 +2,7 @@
 using OrderManagmentApp.DataLayer.EF;
 using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.BusinessLogic.Interfaces;
+using OrderManagmentApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,7 @@ namespace OrderManagmentApp.DataLayer.Repositories
         public IQueryable<OrderAgreement> GetAllByExpression(IEnumerable<Expression<Func<OrderAgreement, bool>>> expressions = null)
         {
             var entities = _dbSet.Include("Agreement").AsNoTracking();
-
-            
-           
-                //throw new NotImplementedException(GetType().ToString());
-            
+            entities.UseExpresionsList(expressions);
             return entities;
         }
 
