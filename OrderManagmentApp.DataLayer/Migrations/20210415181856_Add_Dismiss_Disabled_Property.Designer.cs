@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderManagmentApp.DataLayer.EF;
 
 namespace OrderManagmentApp.DataLayer.Migrations
 {
     [DbContext(typeof(OrderManagmentAppContext))]
-    partial class OrderManagmentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210415181856_Add_Dismiss_Disabled_Property")]
+    partial class Add_Dismiss_Disabled_Property
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

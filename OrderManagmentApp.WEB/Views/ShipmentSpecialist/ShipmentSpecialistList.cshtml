@@ -1,0 +1,20 @@
+﻿@model IEnumerable<OrderManagmentApp.WEB.Models.ShipmentSpecialistViewModel>
+@{
+    Layout = null;
+}
+
+
+<table id="destination-table" class="table table-hover ">
+    <tbody>
+        @foreach (var item in Model)
+        { var className = item.IsDismissed ? "gray-row" : ""; 
+        <tr>
+            
+            <td id="@item.Id" class="@className">
+                @Html.DisplayFor(modelItem => item.Specialist)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+

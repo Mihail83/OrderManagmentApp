@@ -80,6 +80,114 @@ body {
     overflow-x: hidden;
 }
 
+.gray-row {
+    background-color:gray;
+    text-decoration-color: midnightblue;
+}
+
+/*for SecondaryTables/index*/
+.grid1 {
+    display: grid;
+    height: 100%;
+    justify-items: stretch;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 15fr;
+    column-gap: 5px;
+    row-gap: 10px;
+}
+    .grid1 input {
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+        /*padding: 0px 0px;*/
+        
+    }
+
+.manager-button {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    /*background-color: blue;*/
+    text-align: center;
+}
+
+.ship-spec-button {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    /*background-color: green;*/
+    text-align: center;
+}
+
+.ship-dest-button {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    /*background-color: yellow;*/
+    text-align: center;
+}
+
+.item-manager {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    /*background-color: black;*/
+    height: 100%;
+}
+.grid-level2 {
+    display: grid;
+    justify-items: stretch;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 10fr;
+    column-gap: 5px;
+    padding: 3px;
+    border: 1px solid black; 
+}
+
+    .grid-level2 table {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+       /* background-color: gray;*/
+    }
+
+    .grid-level2 div {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        /*background-color: gray;*/
+        width: 100%;
+        /*height: 100%*/
+    }
+    .grid-level2 input {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    
+.item-destination {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;    
+    height: 100%; 
+    /*background-color: aqua;  */ 
+}
+.item-specialist {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    height: 100%;
+    /*background-color: yellowgreen;*/
+}
+    
+.form-inline {
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+}
+
+div[disabled] {
+    /*display: none;*/
+}
+
+.selected-td {
+    background-color: green;
+    color : coral;
+}
+
+
+
 
 
 

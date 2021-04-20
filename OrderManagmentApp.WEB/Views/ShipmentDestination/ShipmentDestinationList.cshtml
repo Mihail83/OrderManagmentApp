@@ -1,0 +1,21 @@
+﻿@model IEnumerable<OrderManagmentApp.WEB.Models.ShipmentDestinationViewModel>
+@{
+    Layout = null;
+}
+
+
+<table id="manager-table" class="table table-hover ">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var className = item.IsDisabled ? "gray-row" : "";
+            
+            <tr>
+                <td id="@item.Id" class="@className">
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,57 @@
+﻿@using OrderManagmentApp.Infrastructure.Constatnts;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid1">
+    <div class="manager-button ">
+        <input id="managerbutton" type="button" value="@Messages.Managers" />
+    </div>
+    <div class="ship-spec-button ">
+        <input id="shipmentdestination" type="button" value="@Messages.ShipmentDestination" />
+    </div>
+    <div class="ship-dest-button ">
+        <input id="shipmentspecialist" type="button" value="@Messages.ShipmentSpecialist" />
+    </div>
+
+    <div class="item-manager grid-level2">
+        <table id="manager-table" class="table-bordered ">
+        </table>
+        <input class="form-control" type="text" placeholder="@Messages.NewManager" name="name" value="" />
+        <div id="managers-button">
+            <input class="form-inline" type="button" name="ADD" value="ADD">
+            <input class="form-inline" type="button" name="Block" value="Block">
+
+        </div>
+    </div>
+
+    <div class="item-specialist grid-level2">
+        <table id="specialist-table" class="table-bordered ">
+        </table>
+        <input class="form-control" type="text" placeholder="@Messages.NewShipmentSpecialist" name="name" value="" />
+        <div id="specialists-button">
+            <input class="form-inline" type="button" name="ADD" value="ADD">
+            <input class="form-inline" type="button" name="Block" value="Block">
+        </div>
+
+    </div>
+
+    <div class="item-destination grid-level2">
+        <table id="destination-table" class="table-bordered ">
+        </table>
+        <input class="form-control" type="text" placeholder="@Messages.NewShipmentDestination" name="name" value="" />
+        <div id="destinations-button">
+            <input class="form-inline" type="button" name="ADD" value="ADD">
+            <input class="form-inline" type="button" name="Block" value="Block">
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    @{ @*await Html.RenderPartialAsync("_ValidationScriptsPartial");*@
+        await Html.RenderPartialAsync("~/Views/Shared/PartialViewWithScript/SecondaryTablesIndexPart.cshtml");
+    }
+}
+
+

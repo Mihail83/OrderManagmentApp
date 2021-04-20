@@ -2,6 +2,7 @@
 using OrderManagmentApp.DataLayer.EF;
 using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.BusinessLogic.Interfaces;
+using OrderManagmentApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,19 +33,11 @@ namespace OrderManagmentApp.DataLayer.Repositories
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<Agreement> GetAllByExpression(IEnumerable<Expression<Func<Agreement, bool>>> expressions = null)
+        public IQueryable<Agreement> GetAllByExpression(IEnumerable<Expression<Func<Agreement, bool>>> expressions = null)
         {
-            var Entities = new List<Agreement>();
-
-            if (expressions == null)
-            {
-                Entities.AddRange(_dbSet.Include("Customer").Include("OrderAgreement").AsNoTracking());
-            }
-            else
-            {
-                throw new NotImplementedException(GetType().ToString());
-            }
-            return Entities;
+            var agreementEntities = _dbSet.Include("Customer").Include("OrderAgreement").AsNoTracking();
+            agreementEntities.UseExpresionsList(expressions);
+            return agreementEntities;
         }
 
         public Agreement GetById(int id)

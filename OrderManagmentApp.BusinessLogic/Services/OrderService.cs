@@ -42,8 +42,7 @@ namespace OrderManagmentApp.BusinessLogic.Services
 
             return orders
                 .Skip(pageSize * (page - 1))
-                .Take(pageSize)
-                .ToList();
+                .Take(pageSize);
         }
 
         public void SaveOrder(Order newOrder)
