@@ -8,17 +8,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="row nav-order-manager ">
+    <div>
+        <a asp-action="Create">Create New</a>
+    </div>
+    <form id="filter" asp-action="ChangeFilter" method="post">
+        <input type="submit" name="name" value="UseFilter" />
+    </form>
+    <button id="Clearfilter" type="button" name="Clear filter" value="Clear"></button>
+</div>
+
 <div class="m-2">
     <div class="form-inline">
-        <form id="filter" asp-action="ChangeFilter" method="post">
-            <input type="submit" name="name" value="UseFilter" />
-        </form>
+        
     </div>
 
-    <table id="mainpage" class="table table-bordered table-hover">
+    <table id="mainpage" class="table table-bordered table-hover " style="word-break:keep-all">
         <thead>
             <tr>
                 <th><input form="filter" name="ValueOfFilterById" type="number" value="@Model.state.FilterState.ValueOfFilterById" placeholder="Номер" class="form-control" /></th>

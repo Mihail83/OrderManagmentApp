@@ -10,6 +10,9 @@ using OrderManagmentApp.BusinessLogic.Services;
 using OrderManagmentApp.DataLayer;
 using OrderManagmentApp.WEB.Models;
 using OrderManagmentApp.WEB.Services.Map;
+using OrderManagmentApp.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
 
 
 namespace OrderManagmentApp.WEB
@@ -37,6 +40,7 @@ namespace OrderManagmentApp.WEB
 
             services.AddDataLayerService(Configuration);
             services.AddBusinessLogicService(Configuration);
+            services.AddInfrastructureService(Configuration);
 
             services.AddScoped<IMapper<Order, OrderViewModel>, MapperOrderTo_OrderViewModel>();
             services.AddScoped<IMapper<OrderViewModel, Order>, MapperOrderViewModelToOrder>();
@@ -59,6 +63,12 @@ namespace OrderManagmentApp.WEB
 
 
             services.AddScoped<OrderService>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option => 
+                { 
+                    option.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    option.Cookie.Expiration = TimeSpan.FromHours(8);
+                });
 
         }
 
@@ -81,6 +91,7 @@ namespace OrderManagmentApp.WEB
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

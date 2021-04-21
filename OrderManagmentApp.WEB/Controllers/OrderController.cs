@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq.Expressions;
 using OrderManagmentApp.WEB.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly OrderService _orderService;
@@ -148,7 +150,8 @@ namespace OrderManagmentApp.WEB.Controllers
             SetSelectListToViewBag();
             return View(model);            
         }
-
+        [Authorize(Roles = "Advanced_user")]
+        
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -162,6 +165,7 @@ namespace OrderManagmentApp.WEB.Controllers
             return View(_mapperToViewModel.Map(order));
         }
 
+        [Authorize(Roles = "Advanced_user")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(OrderViewModel orderViewModel)

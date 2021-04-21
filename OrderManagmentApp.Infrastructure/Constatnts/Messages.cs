@@ -12,6 +12,13 @@ namespace OrderManagmentApp.Infrastructure.Constatnts
         public const string NewManager = "Новый менеджер";
         public const string NewShipmentDestination = "Новое место отгрузки";
         public const string NewShipmentSpecialist = "Новый сотрудник";
+        public const string NeedName = "Имя Обязательно";
+        public const string NeedPassword = "Пароль обязателен";
+        public const string CreateNewUser = "Новый пользователь";
+        public const string Name = "Имя";
+        public const string Password= "Пароль";
+
+
 
 
     }

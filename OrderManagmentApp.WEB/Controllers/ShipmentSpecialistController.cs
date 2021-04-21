@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ShipmentSpecialistController : Controller
     {
         private readonly ShipmentSpecialistService _shipmentSpecialistService;
@@ -42,6 +44,7 @@ namespace OrderManagmentApp.WEB.Controllers
         /// </summary>
         /// <param name="shipmentSpecialistViewModel"></param>
         ///  <returns>Json  =  bool</returns>
+   
         public JsonResult Create(string newShipmentSpecialist)
         {
             bool result = false;
@@ -57,7 +60,7 @@ namespace OrderManagmentApp.WEB.Controllers
             }
             return Json(result);
         }
-       
+      
         public JsonResult ToggleBlock(int id)
         {
             var entity =  _shipmentSpecialistService.GetShipmentSpecialistId(id);
