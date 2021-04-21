@@ -6,7 +6,7 @@ namespace OrderManagmentApp.DataLayer.EF
 {
     public class OrderManagmentAppContext : DbContext
     {
-        public OrderManagmentAppContext(DbContextOptions options) : base(options)
+        public OrderManagmentAppContext(DbContextOptions<OrderManagmentAppContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

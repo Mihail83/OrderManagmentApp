@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ShipmentDestinationController : Controller
     {
         private readonly ShipmentDestinationService _shipmentDestinationService;
@@ -41,7 +43,7 @@ namespace OrderManagmentApp.WEB.Controllers
         ///  I try to learn how write summary properly
         /// </summary>
         /// <param name="shipmentDestinationViewModel"></param>
-        ///  <returns>Json  =  bool</returns>
+        ///  <returns>Json  =  bool</returns>        
         public JsonResult Create(string newDestinationName)
         {
             bool result = false;            
@@ -56,7 +58,7 @@ namespace OrderManagmentApp.WEB.Controllers
                 result = true;
             }
             return Json(result);
-        }
+        }        
         public JsonResult ToggleBlock(int id)
         {
             var entity = _shipmentDestinationService.GetShipmentDestinationById(id);

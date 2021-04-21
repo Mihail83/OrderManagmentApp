@@ -5,9 +5,11 @@ using OrderManagmentApp.BusinessLogic.Models;
 using OrderManagmentApp.BusinessLogic.Services;
 using OrderManagmentApp.WEB.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
+    [Authorize(Roles = "User,Advanced_user")]
     public class AgreementController : Controller
     {
         readonly IMapper<Agreement, AgreementViewModel> _mapperToViewModel;
@@ -28,7 +30,7 @@ namespace OrderManagmentApp.WEB.Controllers
         public ActionResult AgreementManager()
         {
             var agreements = _agreementService.GetAgreementToAgreementPage();
-            List<AgreementViewModel> customerViewModels= null;
+            List<AgreementViewModel> customerViewModels = null;
             if (agreements != null)
             {
                 customerViewModels = new List<AgreementViewModel>();
@@ -39,12 +41,7 @@ namespace OrderManagmentApp.WEB.Controllers
             }
             return View(customerViewModels);
         }
-
-        //ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
+        
         public ActionResult Create()
         {
             return View();
@@ -66,12 +63,13 @@ namespace OrderManagmentApp.WEB.Controllers
             return RedirectToAction(nameof(AgreementManager));
         }
 
-
+        [Authorize(Roles = "Advanced_user")]
         public ActionResult Edit(int id = 1)
         {
             return View(_mapperToViewModel.Map(_agreementService.GetAgreement(id)));
         }
 
+        [Authorize(Roles = "Advanced_user")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AgreementViewModel agreementViewModel)
@@ -86,27 +84,5 @@ namespace OrderManagmentApp.WEB.Controllers
             }
             return RedirectToAction(nameof(AgreementManager));
         }
-
-        //// GET: CustomerController/Delete/5
-        //ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: CustomerController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(CustomerManager));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
     }
 }

@@ -8,28 +8,54 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.css" />   
 </head>
+@using OrderManagmentApp.Infrastructure.Constatnts
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <div class=" navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerManager">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrderManager">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Agreement" asp-action="AgreementManager">Agreement</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SecondaryTables" asp-action="Index">SecondaryTables</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <nav class="main-menu mb-3 border-bottom">
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerManager">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrderManager">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Agreement" asp-action="AgreementManager">Agreement</a>
+                </li>
+                @if (User.IsInRole("admin"))
+                 {
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                AdminMenu
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="SecondaryTables" asp-action="Index">SecondaryTables</a>
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Create">@Messages.CreateNewUser </a>
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Index">User list</a>
+                            </div>
+                        </div>
+                    </li>
+
+                 }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item nav-right">
+                        <p>    @User.Identity.Name</p>
+                    </li>
+                    <li class="nav-item nav-right">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Выход" />
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item nav-right"><a asp-controller="Account" asp-action="Login">Вход</a></li>
+
+                }
+            </ul>
         </nav>
     </header>
 

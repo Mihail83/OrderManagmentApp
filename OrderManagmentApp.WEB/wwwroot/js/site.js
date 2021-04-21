@@ -8,3 +8,8 @@
 //$(document).ready(function () {
 //    $("#ContractSum").rules("remove", "number");
 //});
+$(document).ready(function () {
+    $("#Clearfilter").click(function () {
+        $("#mainpage input").val("");
+    })
+});

@@ -8,9 +8,11 @@ using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OrderManagmentApp.WEB.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class ManagerController : Controller
     {
         private readonly ManagerService _managerService;
@@ -41,7 +43,7 @@ namespace OrderManagmentApp.WEB.Controllers
         ///  I try to learn how write summary properly
         /// </summary>
         /// <param name="managerViewModel"></param>
-        ///  <returns>Json  =  bool</returns>
+        ///  <returns>Json  =  bool</returns>        
         public JsonResult Create(string NewManagerName)
         {
             bool result = false;
@@ -61,7 +63,7 @@ namespace OrderManagmentApp.WEB.Controllers
                 }
             }      
             return Json(result);
-        }
+        }        
         public JsonResult ToggleBlock(int id)
         {
             var entity =  _managerService.GetManagerById(id);
